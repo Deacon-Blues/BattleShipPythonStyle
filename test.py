@@ -45,6 +45,16 @@ def hide_ship():
     ship.append(random_row())  # sets second item in ship to row
 
 
+def miss(target):
+    column = target[0]
+    row = (target[1] - 1)
+    missed_target = [column, row]
+    board_index = missed_target[0]
+    board_list = missed_target[1]
+    board[board_list][board_index] = "X"
+    print_board()
+
+
 def shoot():
     turn = 0
     while turn < 10:
@@ -57,6 +67,7 @@ def shoot():
             turn = 10
             print('Hit! You win!')
         else:
+            miss(target)
             turn += 1
             print('Miss! Try again!')
 

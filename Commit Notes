@@ -1,0 +1,8 @@
+Commit Notes
+
+Second Commit - Added miss feature
+              - Miss Feature replaces 'O' with 'X' at any location that has been tried, and failed
+
+Third Commit - Added miss(target): function to functions file
+
+Fourth Commit - Added commit notes file

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46ad22d2-c141-4158-ae8d-bf7c67ce92ed" name="Default" comment="">
+    <list default="true" id="46ad22d2-c141-4158-ae8d-bf7c67ce92ed" name="Default" comment="Fourth Commit">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Commit Notes" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BattleShip.iws" />
@@ -55,7 +56,7 @@
       <file leaf-file-name="test.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="6" selection-start="1085" selection-end="1313" vertical-scroll-proportion="0.0" vertical-offset="716" max-vertical-offset="1445">
+            <state line="58" column="12" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0" vertical-offset="716" max-vertical-offset="1445">
               <folding />
             </state>
           </provider>
@@ -382,7 +383,11 @@
       <created>1392824821406</created>
       <updated>1392824821406</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fourth Commit">
+      <created>1392824914400</created>
+      <updated>1392824914400</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -509,13 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="6" selection-start="1085" selection-end="1313" vertical-scroll-proportion="0.0" vertical-offset="716" max-vertical-offset="1445">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="65" column="22" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.0" vertical-offset="1090" max-vertical-offset="1445">
@@ -526,6 +524,13 @@
     <entry file="file://$PROJECT_DIR$/README">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="54" selection-end="54" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="12" selection-start="1341" selection-end="1341" vertical-scroll-proportion="0.0" vertical-offset="716" max-vertical-offset="1445">
           <folding />
         </state>
       </provider>

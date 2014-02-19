@@ -11,3 +11,6 @@ Fifth Commit - Added column letter input feature.
              - Allows Column input to be a letter, which corresponds with a number 1-5
 
 Sixth Commit - Added comments to various blocks of code
+
+Seventh Commit - Added self-checking feature
+               - Self checking function within shoot function that makes sure user inputed target is not repeated

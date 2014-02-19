@@ -66,22 +66,42 @@ def miss(target):
     print_board()
 
 
-# Function that takes user inputted coordinates and checks for hit or miss
-def shoot():
-    turn = 0  # Sets turn var to 0
-    while turn < 10:  # While turn < 10
+# Function responsible for checking if target(list) has already been tried
+def check_if_tried(target):
+    board_index = target[0]  # Board index(aka column) = 1st element in target list
+    board_row = target[1] - 1  # Board row(aka list) = 2nd element in target list
+    if board[board_row][board_index] == "X":  # If target list coordinates(column and row) are already X
+        return True  # Return true because X means its already been tried
+    else:  # else
+        return False  # False because it has not been tried
+
+
+# Function that gathers user input and assigns it as elements in a list(named target)
+def get_target():
         column = input('What column?: ')  # User input column
         row = input('What row?: ')  # User inputs row
         column = column_letter[column.upper()]  # Uses column_letter dictionary to find number of column
         row = int(row)  # Sets row input to int form
-        target = [column, row]  # sets target var to a list containing column and row
-        if target == ship:  # If target list == ship list
-            turn = 10  # Sets turn var to 10 as to end function
-            print('Hit! You win!')  # You dun won!
-        else:  # Else
-            miss(target)  # Run miss function on target list
-            turn += 1  # add 1 to turn var
-            print('Miss! Try again!')
+        target = [column, row]
+        return target
+
+
+# Function that takes user inputted coordinates and checks for hit or miss
+def shoot():
+    turn = 0  # Sets turn var to 0
+    while turn < 10:  # While turn < 10
+        target = get_target()
+        if check_if_tried(target) is True:
+            print('You already tried that!')
+        else:
+            if target == ship:  # If target list == ship list
+                turn = 10  # Sets turn var to 10 as to end function
+                print('Hit! You win!')  # You dun won!
+            else:  # Else
+                miss(target)  # Run miss function on target list
+                turn += 1  # add 1 to turn var
+                print('Miss! Try again!')
+    print('You loose!')
 
 
 def main():

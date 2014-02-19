@@ -1,4 +1,4 @@
-__author__ = 'Terrance'
+__author__ = 'Deacon-Blues'
 
 
 board = []

@@ -2,3 +2,4 @@ Basic Battle-Ship style game, written in python 3.3.
 
 Second Commit - Added miss feature
               - Miss Feature replaces 'O' with 'X' at any location that has been tried, and failed
+Third Commit - Added miss(target): function to functions file

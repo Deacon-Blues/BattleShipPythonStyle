@@ -1,5 +1,6 @@
 __author__ = 'Terrance'
 
+
 board = []
 
 x = ['1', '2', '3', '4', '5']

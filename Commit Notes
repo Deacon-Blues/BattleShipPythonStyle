@@ -6,3 +6,6 @@ Second Commit - Added miss feature
 Third Commit - Added miss(target): function to functions file
 
 Fourth Commit - Added commit notes file
+
+Fifth Commit - Added column letter input feature.
+             - Allows Column input to be a letter, which corresponds with a number 1-5

@@ -1,6 +1,12 @@
-__author__ = 'Terrance'
+__author__ = 'Deacon-Blues'
 
 import random
+
+column_letter = {'A': 1,
+                 'B': 2,
+                 'C': 3,
+                 'D': 4,
+                 'E': 5}
 
 # First item is column second item is row
 ship = []
@@ -60,7 +66,7 @@ def shoot():
     while turn < 10:
         column = input('What column?: ')
         row = input('What row?: ')
-        column = int(column)
+        column = column_letter[column.upper()]
         row = int(row)
         target = [column, row]
         if target == ship:

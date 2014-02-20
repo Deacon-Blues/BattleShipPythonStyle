@@ -78,29 +78,33 @@ def check_if_tried(target):
 
 # Function that gathers user input and assigns it as elements in a list(named target)
 def get_target():
-        column = input('What column?: ')  # User input column
-        row = input('What row?: ')  # User inputs row
-        column = column_letter[column.upper()]  # Uses column_letter dictionary to find number of column
-        row = int(row)  # Sets row input to int form
-        target = [column, row]
-        return target
+        target = []  # Target list
+        coordinates = input('Where would you like to fire sir?: ')  # Sets coordinate var to user input(letter-number)
+        column = coordinates[0].upper()  # First character in coordinates string = column
+        row = coordinates[1]  # Second character in coordinates string = row
+        column = column_letter[column.upper()]  # Sets user input letter to equivalent dictionary key
+        row = int(row)  # Sets row to int form
+        target.append(column)  # Adds column to target list
+        target.append(row)  # Add row to target list
+        return target  
 
 
 # Function that takes user inputted coordinates and checks for hit or miss
 def shoot():
     turn = 0  # Sets turn var to 0
-    while turn < 10:  # While turn < 10
+    running = True
+    while running:  # While turn < 10
         target = get_target()
         if check_if_tried(target) is True:
             print('You already tried that!')
         else:
             if target == ship:  # If target list == ship list
-                turn = 10  # Sets turn var to 10 as to end function
+                running = False  # Sets turn var to 10 as to end function
                 print('Hit! You win!')  # You dun won!
             else:  # Else
                 miss(target)  # Run miss function on target list
                 turn += 1  # add 1 to turn var
-                print('Miss! Try again!')
+                print('Miss! You have tried', turn, 'times!')
     print('You loose!')
 
 

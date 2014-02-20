@@ -14,3 +14,6 @@ Sixth Commit - Added comments to various blocks of code
 
 Seventh Commit - Added self-checking feature
                - Self checking function within shoot function that makes sure user inputed target is not repeated
+
+Eighth Commit - Reworked get_target function
+              - Can now enter target location in one input rather than two

@@ -74,13 +74,20 @@ def valid_column(target):
         return False
 
 
+def valid_row(target):
+    if target[1] in range(1, 6):
+        return True
+    else:
+        return False
+
+
 # Function that takes user inputted coordinates and checks for hit or miss
 def shoot():
     turn = 0  # Sets turn var to 0
     running = True
     while running:  # While turn < 10
         target = get_target()
-        if valid_column(target) is True:
+        if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
                 if target == ship:  # If target list == ship list
                     running = False  # Sets turn var to 10 as to end function
@@ -89,8 +96,12 @@ def shoot():
                     miss(target)  # Run miss function on target list
                     turn += 1  # add 1 to turn var
                     print('Miss! You have tried', turn, 'times!')
-        elif valid_column(target) is False:
+        elif valid_column(target) is False and valid_row(target) is True:  # This logic
             print('Invalid Column input!')
+        elif valid_column(target) is True and valid_row(target) is False:  # handles invalid inputs
+            print('Invalid row input!')
+        elif valid_column(target) is False and valid_row(target) is False:  # for column, row, and both column and row
+            print('Invalid inputs!')
         else:
             print('You already tried that!')
 

@@ -26,3 +26,7 @@ Tenth Commit - Expanded self-checking feature
              - Removed test.py
              - Updated lists_dictionaries.py
              - Updated functions.py
+
+Eleventh Commit - Expanded self-checking feature
+                    - Added Valid_row function to check row input fro validity
+                    - Added boolean logic to shoot function, to handle invalid inputs for both columns and rows

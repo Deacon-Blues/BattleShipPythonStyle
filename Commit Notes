@@ -17,3 +17,6 @@ Seventh Commit - Added self-checking feature
 
 Eighth Commit - Reworked get_target function
               - Can now enter target location in one input rather than two
+
+Ninth Commit - Reworked shoot function
+             - Easier to read, easier to add to later

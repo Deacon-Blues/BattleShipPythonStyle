@@ -95,9 +95,7 @@ def shoot():
     running = True
     while running:  # While turn < 10
         target = get_target()
-        if check_if_tried(target) is True:
-            print('You already tried that!')
-        else:
+        if check_if_tried(target) is False:
             if target == ship:  # If target list == ship list
                 running = False  # Sets turn var to 10 as to end function
                 print('Hit! You win!')  # You dun won!
@@ -105,6 +103,8 @@ def shoot():
                 miss(target)  # Run miss function on target list
                 turn += 1  # add 1 to turn var
                 print('Miss! You have tried', turn, 'times!')
+        else:
+            print('You already tried that!')
     print('You loose!')
 
 

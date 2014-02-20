@@ -24,13 +24,22 @@ def print_board():
 
 
 def random_column_key():
-    return column_letter[random.randrange(1, 6)]
+    return column_letter[random.randrange(2, 5)]
 
 
 # Function that takes random number functions as coordinates
 def hide_ship():
-    ship.append(random_column_key())  # sets first item in ship to column
-    ship.append(random.randrange(1, 6))  # sets second item in ship to row
+    ship_origin.append(random_column_key())  # sets first item in ship to column
+    ship_origin.append(random.randrange(1, 6))  # sets second item in ship to row
+    port = []  # Empty list, will represent ship origin coordinates + 1
+    starboard = []  # Empty list, will represent ship origin coordinates - 1
+    port.append(ship_origin[0])  # Adds origin column to port list
+    port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
+    starboard.append(ship_origin[0])  # Adds origin column to starboard list
+    starboard.append(ship_origin[1] - 1)  # Adds origin row + 1 to starboard list
+    ship.append(ship_origin)  # Adds origin coordinates to ship list
+    ship.append(port)  # Adds port coordinates to ship list
+    ship.append(starboard)  # Adds starboard coordinates to ship list
 
 
 # Function responsible for replacing 'O's with 'X's upon missing
@@ -45,11 +54,23 @@ def miss(target):
     print_board()
 
 
+# Function responsible for replacing 'O's with '$'s upon hitting
+# Takes target list as input [column, row]
+def hit(target):
+    column = column_number[target[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
+    row = (target[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+    missed_target = [column, row]  # Consider slimming this function down
+    board_index = missed_target[0]  # As a lot of this is not needed
+    board_list = missed_target[1]  # Written like this to help understand what represented what
+    board[board_list][board_index] = "$"  # In relation to the board
+    print_board()
+
+
 # Function responsible for checking if target(list) has already been tried
 def check_if_tried(target):
     board_index = column_number[target[0].upper()]  # Board index(aka column) = 1st element's value:key in column_number
     board_row = target[1] - 1  # Board row(aka list) = 2nd element in target list
-    if board[board_row][board_index] == "X":  # If target list coordinates(column and row) are already X
+    if board[board_row][board_index] == "X" or '$':  # If target list coordinates(column and row) are already X
         return True  # Return true because X means its already been tried
     else:  # else
         return False  # False because it has not been tried
@@ -67,6 +88,7 @@ def get_target():
         return target
 
 
+# Checks if column input is valid
 def valid_column(target):
     if target[0] in y:
         return True
@@ -74,6 +96,7 @@ def valid_column(target):
         return False
 
 
+# Checks if row input is valid
 def valid_row(target):
     if target[1] in range(1, 6):
         return True
@@ -85,17 +108,24 @@ def valid_row(target):
 def shoot():
     turn = 0  # Sets turn var to 0
     running = True
-    while running:  # While turn < 10
+    while running:  # While running is True
         target = get_target()
         if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
-                if target == ship:  # If target list == ship list
-                    running = False  # Sets turn var to 10 as to end function
-                    print('Hit! You win!')  # You dun won!
+                if target in ship:  # If target list == ship list
+                    ship.remove(target)
+                    if not ship:
+                        running = False  # Sets turn var to 10 as to end function
+                        print('Hit! You sank his Battle Ship! You win!')  # You dun won!
+                    else:
+                        hit(target)
+                        print('Hit!')
                 else:  # Else
                     miss(target)  # Run miss function on target list
                     turn += 1  # add 1 to turn var
                     print('Miss! You have tried', turn, 'times!')
+            else:
+                print('We\'ve already bombarded that location sir!')
         elif valid_column(target) is False and valid_row(target) is True:  # This logic
             print('Invalid Column input!')
         elif valid_column(target) is True and valid_row(target) is False:  # handles invalid inputs
@@ -103,12 +133,14 @@ def shoot():
         elif valid_column(target) is False and valid_row(target) is False:  # for column, row, and both column and row
             print('Invalid inputs!')
         else:
-            print('You already tried that!')
+            print('Error')
 
 
 def main():
     fill_board()
     print_board()
     hide_ship()
+    print(ship)
     shoot()
+
 

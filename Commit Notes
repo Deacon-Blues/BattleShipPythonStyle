@@ -30,3 +30,12 @@ Tenth Commit - Expanded self-checking feature
 Eleventh Commit - Expanded self-checking feature
                     - Added Valid_row function to check row input fro validity
                     - Added boolean logic to shoot function, to handle invalid inputs for both columns and rows
+
+Twelfth Commit - Added larger ships
+                    - Hide_ship function now hides a ship that is 3(connected) coordinates long instead of the
+                    - 1 coordinate ship it previously hid
+               - Added Hit target feature
+                    - Added hit(target) function to replace 'O's with '$'s Upon hitting
+               - Updated sel-checking feature
+                    - Now includes hit targets($) as well as missed targets(X)
+               - Updated Error messages for various outcomes

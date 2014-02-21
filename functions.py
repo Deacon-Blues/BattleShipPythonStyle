@@ -31,20 +31,41 @@ def print_board():
 
 
 def random_column_key():
-    return column_letter[random.randrange(1, 6)]
+    return random.randrange(1, 6)
+
+
+# Converts column values to their int counterparts
+def convert_column():
+    ship_origin[0] = column_letter[ship_origin[0]]
+    port[0] = column_letter[port[0]]
+    starboard[0] = column_letter[starboard[0]]
 
 
 # Function that takes random number functions as coordinates
 def hide_ship():
-    ship_origin.append(random_column_key())  # sets first item in ship to column
-    ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
-    port.append(ship_origin[0])  # Adds origin column to port list
-    port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
-    starboard.append(ship_origin[0])  # Adds origin column to starboard list
-    starboard.append(ship_origin[1] - 1)  # Adds origin row + 1 to starboard list
-    ship.append(ship_origin)  # Adds origin coordinates to ship list
-    ship.append(port)  # Adds port coordinates to ship list
-    ship.append(starboard)  # Adds starboard coordinates to ship list
+    direction = random.randrange(1, 3)
+    if direction == 1:
+        ship_origin.append(random_column_key())  # sets first item in ship to column
+        ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
+        port.append(ship_origin[0])  # Adds origin column to port list
+        port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
+        starboard.append(ship_origin[0])  # Adds origin column to starboard list
+        starboard.append(ship_origin[1] - 1)  # Adds origin row - 1 to starboard list
+        convert_column()
+        ship.append(ship_origin)  # Adds origin coordinates to ship list
+        ship.append(port)  # Adds port coordinates to ship list
+        ship.append(starboard)  # Adds starboard coordinates to ship list
+    else:
+        ship_origin.append(random_column_key())  # sets first item in ship to column
+        ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
+        port.append(ship_origin[0] + 1)  # Adds origin column + 1 to port list
+        port.append(ship_origin[1])  # Adds origin row to port list
+        starboard.append(ship_origin[0] - 1)  # Adds origin column - 1 to starboard list
+        starboard.append(ship_origin[1])  # Adds origin row to starboard list
+        convert_column()
+        ship.append(ship_origin)  # Adds origin coordinates to ship list
+        ship.append(port)  # Adds port coordinates to ship list
+        ship.append(starboard)  # Adds starboard coordinates to ship list
 
 
 # Function responsible for replacing 'O's with 'X's upon missing

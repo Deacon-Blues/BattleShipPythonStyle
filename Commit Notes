@@ -54,3 +54,6 @@ Sixteenth Commit - Added Restart feature
                         - Added a number of functions and logic to facilitate Restart Feature
                  - Added Cheat Code feature
                         - A user input of "fs" will print the ships coordinates
+
+Seventeenth Commit - Added Horizontal Ship placement
+                        - Previously only vertical placement was possible

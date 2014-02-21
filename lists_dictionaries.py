@@ -16,8 +16,14 @@ column_number = {'A': 1,
 # First item is column second item is row
 ship = []
 
+ship_origin = []
+
 board = []  # Empty list to be populated by fill_board function
 
 x = ['1', '2', '3', '4', '5']  # List of row numbers, inserted into the front of each row later on
 
 y = [" ", 'A', 'B', 'C', 'D', 'E']  # Needs space to properly print in 5x5 grid
+
+columns = ['A', 'B', 'C', 'D', 'E']
+
+rows = ['1', '2', '3', '4', '5']

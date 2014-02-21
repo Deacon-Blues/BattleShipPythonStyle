@@ -14,10 +14,14 @@ column_number = {'A': 1,
                  'D': 4,
                  'E': 5}
 
-ship = []
+columns = ['A', 'B', 'C', 'D', 'E']
+
+rows = ['1', '2', '3', '4', '5']
 
 # First item is column second item is row
 ship_origin = []
+
+ship = []
 
 board = []  # Empty list to be populated by fill_board function
 
@@ -47,13 +51,13 @@ def print_board():
 
 
 def random_column_key():
-    return column_letter[random.randrange(2, 5)]
+    return column_letter[random.randrange(1, 6)]
 
 
 # Function that takes random number functions as coordinates
 def hide_ship():
     ship_origin.append(random_column_key())  # sets first item in ship to column
-    ship_origin.append(random.randrange(1, 6))  # sets second item in ship to row
+    ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
     port = []  # Empty list, will represent ship origin coordinates + 1
     starboard = []  # Empty list, will represent ship origin coordinates - 1
     port.append(ship_origin[0])  # Adds origin column to port list
@@ -93,7 +97,7 @@ def hit(target):
 def check_if_tried(target):
     board_index = column_number[target[0].upper()]  # Board index(aka column) = 1st element's value:key in column_number
     board_row = target[1] - 1  # Board row(aka list) = 2nd element in target list
-    if board[board_row][board_index] == "X" or '$':  # If target list coordinates(column and row) are already X
+    if board[board_row][board_index] == "X" or board[board_row][board_index] == '$':
         return True  # Return true because X means its already been tried
     else:  # else
         return False  # False because it has not been tried
@@ -113,7 +117,7 @@ def get_target():
 
 # Checks if column input is valid
 def valid_column(target):
-    if target[0] in y:
+    if target[0] in columns:
         return True
     else:
         return False
@@ -121,7 +125,7 @@ def valid_column(target):
 
 # Checks if row input is valid
 def valid_row(target):
-    if target[1] in range(1, 6):
+    if target[1] in rows:
         return True
     else:
         return False
@@ -163,6 +167,5 @@ def main():
     fill_board()
     print_board()
     hide_ship()
-    print(ship)
     shoot()
 main()

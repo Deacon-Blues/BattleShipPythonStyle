@@ -39,3 +39,6 @@ Twelfth Commit - Added larger ships
                - Updated sel-checking feature
                     - Now includes hit targets($) as well as missed targets(X)
                - Updated Error messages for various outcomes
+
+Thirteenth Commit - Added a number of bug fixes
+                  - Minor changes to some function to improve readability

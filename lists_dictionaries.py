@@ -5,19 +5,25 @@ column_letter = {1: 'A',
                  2: 'B',
                  3: 'C',
                  4: 'D',
-                 5: 'E'}
+                 5: 'E',
+                 6: 'F',
+                 7: 'G',
+                 8: 'H'}
 
 column_number = {'A': 1,
                  'B': 2,
                  'C': 3,
                  'D': 4,
-                 'E': 5}
+                 'E': 5,
+                 'F': 6,
+                 'G': 7,
+                 'H': 8}
 
 x = []  # List of row numbers, inserted into the front of each row later on
 
-columns = ['A', 'B', 'C', 'D', 'E']
+columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
-rows = [1, 2, 3, 4, 5]
+rows = [1, 2, 3, 4, 5, 6, 7, 8]
 
 # First item is column second item is row
 ship_origin = []
@@ -26,7 +32,7 @@ ship = []
 
 board = []  # Empty list to be populated by fill_board function
 
-y = [" ", 'A', 'B', 'C', 'D', 'E']  # Needs space to properly print in 5x5 grid
+y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
 
 port = []  # Empty list, will represent ship origin coordinates + 1
 

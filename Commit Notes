@@ -57,3 +57,6 @@ Sixteenth Commit - Added Restart feature
 
 Seventeenth Commit - Added Horizontal Ship placement
                         - Previously only vertical placement was possible
+
+Eighteenth Commit - Expanded Board to 8x8 layout
+                        - Adjusted list, dictionaries and functions to reflect new grid layout

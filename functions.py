@@ -4,26 +4,26 @@ import random
 import time
 
 
-# Function responsible for creating 5 lists of 5 O's
+# Function responsible for creating 8 lists of 8 O's
 def fill_board():
-    for i in range(0, 5):
-        board.append(['O'] * 5)  # Adds 5 lists of 5 'O's to board list
+    for i in range(0, 8):
+        board.append(['O'] * 8)  # Adds 8 lists of 8 'O's to board list
 
 
-# Refills x list with numbers 1-5 in string form
+# Refills x list with numbers 1-8 in string form
 def fill_x(lst):
-    for number in range(1, 6):
+    for number in range(1, 9):
         lst.append(str(number))
 
 
-# Function responsible for inserting 1-5 at the front of each list
+# Function responsible for inserting 1-8 at the front of each list
 def fill_grid():
     fill_x(x)
     for row, i in zip(board, x):  # Used Zip function to loop through 2 separate lists
         row.insert(0, str(i))  # Insert the first number from the x list at the front
 
 
-# Function responsible for printing board list as a 5x5 grid
+# Function responsible for printing board list as a 8x8 grid
 def print_board():
     print(" ".join(y))
     for row in board:
@@ -31,7 +31,7 @@ def print_board():
 
 
 def random_column_key():
-    return random.randrange(1, 6)
+    return random.randrange(1, 9)
 
 
 # Converts column values to their int counterparts
@@ -46,7 +46,7 @@ def hide_ship():
     direction = random.randrange(1, 3)
     if direction == 1:
         ship_origin.append(random_column_key())  # sets first item in ship to column
-        ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
+        ship_origin.append(random.randrange(2, 8))  # sets second item in ship to row
         port.append(ship_origin[0])  # Adds origin column to port list
         port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
         starboard.append(ship_origin[0])  # Adds origin column to starboard list
@@ -57,7 +57,7 @@ def hide_ship():
         ship.append(starboard)  # Adds starboard coordinates to ship list
     else:
         ship_origin.append(random_column_key())  # sets first item in ship to column
-        ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
+        ship_origin.append(random.randrange(2, 8))  # sets second item in ship to row
         port.append(ship_origin[0] + 1)  # Adds origin column + 1 to port list
         port.append(ship_origin[1])  # Adds origin row to port list
         starboard.append(ship_origin[0] - 1)  # Adds origin column - 1 to starboard list
@@ -162,7 +162,7 @@ def shoot():
                     ship.remove(target)
                     if not ship:
                         running = False  # Sets turn var to 10 as to end function
-                        print('Hit! You sank his Battle Ship! You win!')  # You dun won!
+                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
                     else:
                         hit(target)
                         print('Hit!')
@@ -211,5 +211,4 @@ def main():
             running = True
         elif play_again() == "EXIT":
             running = False
-
 

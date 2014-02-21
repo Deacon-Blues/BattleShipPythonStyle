@@ -13,7 +13,7 @@ Fifth Commit - Added column letter input feature.
 Sixth Commit - Added comments to various blocks of code
 
 Seventh Commit - Added self-checking feature
-                - Self checking function within shoot function that makes sure user inputed target is not repeated
+                - Self checking function within shoot function that makes sure user inputted target is not repeated
 
 Eighth Commit - Reworked get_target function
                 - Can now enter target location in one input rather than two
@@ -42,3 +42,6 @@ Twelfth Commit - Added larger ships
 
 Thirteenth Commit - Added a number of bug fixes
                   - Minor changes to some function to improve readability
+
+Fourteenth Commit - Minor Bug fix
+                  - Changed rows list from strings to ints

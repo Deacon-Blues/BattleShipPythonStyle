@@ -60,3 +60,6 @@ Seventeenth Commit - Added Horizontal Ship placement
 
 Eighteenth Commit - Expanded Board to 8x8 layout
                         - Adjusted list, dictionaries and functions to reflect new grid layout
+
+Nineteenth Commit - Minor Bug Fix
+                        - Adjusted random_column_range function to reflect vertical and horizontal ship placement

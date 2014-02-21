@@ -31,7 +31,7 @@ def print_board():
 
 
 def random_column_key():
-    return random.randrange(1, 9)
+    return random.randrange(2, 8)
 
 
 # Converts column values to their int counterparts

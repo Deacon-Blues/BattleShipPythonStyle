@@ -14,6 +14,8 @@ column_number = {'A': 1,
                  'D': 4,
                  'E': 5}
 
+x = ['1', '2', '3', '4', '5']  # List of row numbers, inserted into the front of each row later on
+
 columns = ['A', 'B', 'C', 'D', 'E']
 
 rows = [1, 2, 3, 4, 5]
@@ -25,8 +27,6 @@ ship = []
 
 board = []  # Empty list to be populated by fill_board function
 
-x = ['1', '2', '3', '4', '5']  # List of row numbers, inserted into the front of each row later on
-
 y = [" ", 'A', 'B', 'C', 'D', 'E']  # Needs space to properly print in 5x5 grid
 
 
@@ -34,7 +34,12 @@ y = [" ", 'A', 'B', 'C', 'D', 'E']  # Needs space to properly print in 5x5 grid
 def fill_board():
     for i in range(0, 5):
         board.append(['O'] * 5)  # Adds 5 lists of 5 'O's to board list
-    fill_grid()
+
+
+# Refills x list with numbers 1-5 in string form
+def fill_x():
+    for number in range(1, 6):
+        x.append(str(number))
 
 
 # Function responsible for inserting 1-5 at the front of each list
@@ -165,6 +170,7 @@ def shoot():
 
 def main():
     fill_board()
+    fill_grid()
     print_board()
     hide_ship()
     shoot()

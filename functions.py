@@ -16,6 +16,12 @@ def fill_grid():
         row.insert(0, x.pop(0))  # Insert the first number from the x list at the front
 
 
+# Refills x list with numbers 1-5 in string form
+def fill_x():
+    for number in range(1, 6):
+        x.append(str(number))
+
+
 # Function responsible for printing board list as a 5x5 grid
 def print_board():
     print(" ".join(y))

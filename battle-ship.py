@@ -16,7 +16,7 @@ column_number = {'A': 1,
 
 columns = ['A', 'B', 'C', 'D', 'E']
 
-rows = ['1', '2', '3', '4', '5']
+rows = [1, 2, 3, 4, 5]
 
 # First item is column second item is row
 ship_origin = []
@@ -117,7 +117,7 @@ def get_target():
 
 # Checks if column input is valid
 def valid_column(target):
-    if target[0] in columns:
+    if target[0].upper() in columns:
         return True
     else:
         return False

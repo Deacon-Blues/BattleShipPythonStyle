@@ -1,6 +1,8 @@
 __author__ = 'Deacon-Blues'
 
 import random
+import time
+
 # Dictionary, column letter as value, column number as key
 column_letter = {1: 'A',
                  2: 'B',
@@ -14,7 +16,7 @@ column_number = {'A': 1,
                  'D': 4,
                  'E': 5}
 
-x = ['1', '2', '3', '4', '5']  # List of row numbers, inserted into the front of each row later on
+x = []  # List of row numbers, inserted into the front of each row later on
 
 columns = ['A', 'B', 'C', 'D', 'E']
 
@@ -29,6 +31,10 @@ board = []  # Empty list to be populated by fill_board function
 
 y = [" ", 'A', 'B', 'C', 'D', 'E']  # Needs space to properly print in 5x5 grid
 
+port = []  # Empty list, will represent ship origin coordinates + 1
+
+starboard = []  # Empty list, will represent ship origin coordinates - 1
+
 
 # Function responsible for creating 5 lists of 5 O's
 def fill_board():
@@ -37,15 +43,16 @@ def fill_board():
 
 
 # Refills x list with numbers 1-5 in string form
-def fill_x():
+def fill_x(lst):
     for number in range(1, 6):
-        x.append(str(number))
+        lst.append(str(number))
 
 
 # Function responsible for inserting 1-5 at the front of each list
 def fill_grid():
-    for row in board:  # For every row of O's
-        row.insert(0, x.pop(0))  # Insert the first number from the x list at the front
+    fill_x(x)
+    for row, i in zip(board, x):  # Used Zip function to loop through 2 separate lists
+        row.insert(0, str(i))  # Insert the first number from the x list at the front
 
 
 # Function responsible for printing board list as a 5x5 grid
@@ -63,8 +70,6 @@ def random_column_key():
 def hide_ship():
     ship_origin.append(random_column_key())  # sets first item in ship to column
     ship_origin.append(random.randrange(2, 5))  # sets second item in ship to row
-    port = []  # Empty list, will represent ship origin coordinates + 1
-    starboard = []  # Empty list, will represent ship origin coordinates - 1
     port.append(ship_origin[0])  # Adds origin column to port list
     port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
     starboard.append(ship_origin[0])  # Adds origin column to starboard list
@@ -111,13 +116,16 @@ def check_if_tried(target):
 # Function that gathers user input and assigns it as elements in a list(named target)
 def get_target():
         target = []  # Target list
-        coordinates = input('Where would you like to fire sir?: ')  # Sets coordinate var to user input(letter-number)
-        column = coordinates[0].upper()  # First character in coordinates string = column
-        row = coordinates[1]  # Second character in coordinates string = row
-        row = int(row)  # Sets row to int form
-        target.append(column)  # Adds column to target list
-        target.append(row)  # Add row to target list
-        return target
+        running = True
+        while running:
+            coordinates = input('Where would you like to fire sir?: ')  # Sets coordinate var to user input
+            if check_if_cheat(coordinates) is False:  # If input is not cheat code
+                column = coordinates[0].upper()  # First character in coordinates string = column
+                row = coordinates[1]  # Second character in coordinates string = row
+                row = int(row)  # Sets row to int form
+                target.append(column)  # Adds column to target list
+                target.append(row)  # Add row to target list
+                return target
 
 
 # Checks if column input is valid
@@ -136,6 +144,22 @@ def valid_row(target):
         return False
 
 
+# Checks if user inputs cheat code
+def check_if_cheat(coordinates):
+    if coordinates == 'fs':
+        print(ship)
+        return True
+    else:
+        return False
+
+
+# Function that gathers input on rather user wishes to continue playing
+def play_again():
+    print('Would You like to play again?')
+    go_again = input('Type \'EXIT\' to quit, or press ENTER to play again:  ')
+    return go_again
+
+
 # Function that takes user inputted coordinates and checks for hit or miss
 def shoot():
     turn = 0  # Sets turn var to 0
@@ -144,6 +168,7 @@ def shoot():
         target = get_target()
         if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
+                turn += 1  # add 1 to turn var
                 if target in ship:  # If target list == ship list
                     ship.remove(target)
                     if not ship:
@@ -154,7 +179,6 @@ def shoot():
                         print('Hit!')
                 else:  # Else
                     miss(target)  # Run miss function on target list
-                    turn += 1  # add 1 to turn var
                     print('Miss! You have tried', turn, 'times!')
             else:
                 print('We\'ve already bombarded that location sir!')
@@ -166,12 +190,36 @@ def shoot():
             print('Invalid inputs!')
         else:
             print('Error')
+    return turn
+
+
+# Clears  a given list and returns it
+def clear_lst(lst):
+    lst.clear()
+    return lst
 
 
 def main():
-    fill_board()
-    fill_grid()
-    print_board()
-    hide_ship()
-    shoot()
+    running = True
+    while running:
+        clear_lst(board)  # Change all instances of clear_lst to one function at a later date
+        clear_lst(ship)
+        clear_lst(ship_origin)
+        clear_lst(port)
+        clear_lst(starboard)
+        fill_board()
+        fill_grid()
+        print_board()
+        hide_ship()
+        print('It took you', shoot(), 'Turns to win!')
+        if play_again() == "":
+            print('The Game will restart in 10 seconds')
+            timer = 10
+            while timer > 0:
+                time.sleep(1)
+                print(timer)
+                timer -= 1
+            running = True
+        elif play_again() == "EXIT":
+            running = False
 main()

@@ -13,7 +13,7 @@ column_number = {'A': 1,
                  'D': 4,
                  'E': 5}
 
-x = ['1', '2', '3', '4', '5']  # List of row numbers, inserted into the front of each row later on
+x = []  # List of row numbers, inserted into the front of each row later on
 
 columns = ['A', 'B', 'C', 'D', 'E']
 
@@ -27,3 +27,7 @@ ship = []
 board = []  # Empty list to be populated by fill_board function
 
 y = [" ", 'A', 'B', 'C', 'D', 'E']  # Needs space to properly print in 5x5 grid
+
+port = []  # Empty list, will represent ship origin coordinates + 1
+
+starboard = []  # Empty list, will represent ship origin coordinates - 1

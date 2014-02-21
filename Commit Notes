@@ -44,7 +44,13 @@ Thirteenth Commit - Added a number of bug fixes
                   - Minor changes to some function to improve readability
 
 Fourteenth Commit - Minor Bug fix
-                    - Changed rows list from strings to ints
+                        - Changed rows list from strings to ints
 
 Fifteenth Commit - Added Fill_x function, to be used in later builds
                  - Updated lists_dictionaries file
+
+Sixteenth Commit - Added Restart feature
+                        - User May now restart the game
+                        - Added a number of functions and logic to facilitate Restart Feature
+                 - Added Cheat Code feature
+                        - A user input of "fs" will print the ships coordinates

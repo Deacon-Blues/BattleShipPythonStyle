@@ -229,6 +229,51 @@ def destroy_ship(ship):
     print_board()
 
 
+def check_if_hit(target, coordinates, turn):
+    if target in ships[0]:
+        ships[0].remove(target)
+        hit(target)
+        print('Hit!')
+        print('Hit! You have bombed', turn, 'Coordinates')
+        if not ships[0]:
+            coordinates.remove(ships[0])
+            destroy_ship(ship_1_damage)
+            print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
+            if not coordinates:
+                    running = False  # Sets turn var to 10 as to end function
+                    print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                    return running
+    elif target in ships[1]:
+        ships[1].remove(target)
+        hit(target)
+        print('Hit!')
+        print('Hit! You have bombed', turn, 'Coordinates')
+        if not ships[1]:
+            coordinates.remove(ships[1])
+            destroy_ship(ship_2_damage)
+            print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
+            if not coordinates:
+                    running = False  # Sets turn var to 10 as to end function
+                    print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                    return running
+    elif target in ships[2]:
+        ships[2].remove(target)
+        hit(target)
+        print('Hit!')
+        print('Hit! You have bombed', turn, 'Coordinates')
+        if not ships[2]:
+            coordinates.remove(ships[2])
+            destroy_ship(ship_3_damage)
+            print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
+            if not coordinates:
+                    running = False  # Sets turn var to 10 as to end function
+                    print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                    return running
+    else:  # Else
+        miss(target)  # Run miss function on target list
+        print('Miss! You have bombed', turn, 'Coordinates')
+
+
 # Function that takes user inputted coordinates and checks for hit or miss
 def shoot():
     turn = 0  # Sets turn var to 0
@@ -239,45 +284,7 @@ def shoot():
         if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
                 turn += 1  # add 1 to turn var
-                if target in ships[0]:
-                    ships[0].remove(target)
-                    hit(target)
-                    print('Hit!')
-                    if not ships[0]:
-                        ships_clone.remove(ships[0])
-                        destroy_ship(ship_1_damage)
-                        print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
-                    if not ships_clone:
-                            running = False  # Sets turn var to 10 as to end function
-                            print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                            return running
-                elif target in ships[1]:
-                    ships[1].remove(target)
-                    hit(target)
-                    print('Hit!')
-                    if not ships[1]:
-                        ships_clone.remove(ships[1])
-                        destroy_ship(ship_2_damage)
-                        print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
-                    if not ships_clone:
-                            running = False  # Sets turn var to 10 as to end function
-                            print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                            return running
-                elif target in ships[2]:
-                    ships[2].remove(target)
-                    hit(target)
-                    print('Hit!')
-                    if not ships[2]:
-                        ships_clone.remove(ships[2])
-                        destroy_ship(ship_3_damage)
-                        print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
-                    if not ships_clone:
-                            running = False  # Sets turn var to 10 as to end function
-                            print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                            return running
-                else:  # Else
-                    miss(target)  # Run miss function on target list
-                    print('Miss! You have tried', turn, 'times!')
+                check_if_hit(target, ships_clone, turn)
             else:
                 print('We\'ve already bombarded that location sir!')
         elif valid_column(target) is False and valid_row(target) is True:  # This logic
@@ -308,43 +315,49 @@ def clear_lists():
     clear_lst(ship_3_damage)
 
 
+def hide_ships(one, two, three):
+        hide_ship(one)  # Randomizes and checks coordinates for ship_1 list
+        hide_ship(two)  # Randomizes and checks coordinates for ship_2 list
+        hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
+
+
 def main():
     running = True
     while running:
         filling = True
-        clear_lst(myboard)
-        clear_lst(board)  # Change all instances of clear_lst to one function at a later date
-        clear_lists()
-        fill_board(board)
-        fill_grid(board)
-        fill_board(myboard)
-        fill_grid(myboard)
-        hide_ship(ship_1)
-        hide_ship(ship_2)
-        hide_ship(ship_3)
+        clear_lst(myboard)  # Clear global myboard list
+        clear_lst(board)  # Clear global board list
+        clear_lists()  # Clear all non referenced global lists
+        fill_board(board)  # populates board list with appropriate number of O's
+        fill_grid(board)  # adds the row labels to board list
+        fill_board(myboard)  # populates myboard list with appropriate number of O's
+        fill_grid(myboard)  # adds row labels to myboard list
+        hide_ships(ship_1, ship_2, ship_3)
+        # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
+        # Consider finding a way to make it only re-randomize overlapped ship coordinates
         if any(True for i in ship_2 if i in ship_1):
             filling = False
         if any(True for z in ship_3 if z in ship_2):
             filling = False
         if any(True for k in ship_1 if k in ship_3):
             filling = False
-        while filling is False:
-            main()
-        ship_1_damage.extend(ship_1)
-        ship_2_damage.extend(ship_2)
-        ship_3_damage.extend(ship_3)
-        ships.append(ship_1)
-        ships.append(ship_2)
-        ships.append(ship_3)
+        while filling is False:  # If a ship coordinate is pegged asa repeated
+            main()  # Program restarts and tries again
+        ship_1_damage.extend(ship_1)  # Creates copies
+        ship_2_damage.extend(ship_2)  # of all three ships
+        ship_3_damage.extend(ship_3)  # to be referenced by the destroy_ship function
+        ships.append(ship_1)  # Adds all three ships
+        ships.append(ship_2)  # To a single list(ships)
+        ships.append(ship_3)  # To be used to keep track of current ships in play
         print_board()
-        print('It took you', shoot(), 'Turns to win!')
-        if play_again() == "":
+        print('It took you', shoot(), 'Turns to win!')  # Runs shoot function and returns number of turns taken to win
+        if play_again() == "":  # Runs play again function and if user hits enter
             print('The Game will restart in 5 seconds')
-            timer = 5
-            while timer > 0:
-                time.sleep(1)
-                print(timer)
-                timer -= 1
+            timer = 5  # Timer
+            while timer > 0:  # While timer  > 0(Not done)
+                time.sleep(1)  # Wait 1 sec
+                print(timer)  # print timer var
+                timer -= 1  # timer var - 1 and equal to the result
             running = True
         else:
             break

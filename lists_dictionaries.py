@@ -1,3 +1,6 @@
+__author__ = 'Deacon-Blues'
+
+
 # Dictionary, column letter as value, column number as key
 column_letter = {1: 'A',
                  2: 'B',
@@ -18,6 +21,8 @@ column_number = {'A': 1,
                  'H': 8}
 
 board = []  # Empty list to be populated by fill_board function
+
+myboard = []
 
 x = []  # List of row numbers, inserted into the front of each row later on
 

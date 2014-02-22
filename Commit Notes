@@ -92,3 +92,10 @@ Twenty-Fifth Commit - Changed Board layout
 
 Twenty-Sixth Commit - Added second board
                             - To me used later with VS feature
+
+Twenty-Seven Commit - Cleaned up code
+                        - Added some missing comments
+                        - Minor bug fixes
+                        - Changed Error/status messages
+                        - Downsized some function, created others
+                                - No new content, cleaning up current sourcecode

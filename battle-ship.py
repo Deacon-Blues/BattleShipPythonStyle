@@ -238,20 +238,36 @@ def clear_lst(lst):
     return lst
 
 
+def clear_lists():
+    clear_lst(ships)
+    clear_lst(ship_1)
+    clear_lst(ship_2)
+    clear_lst(ship_3)
+
+
 def main():
     running = True
     while running:
+        filling = True
         clear_lst(board)  # Change all instances of clear_lst to one function at a later date
+        clear_lists()
         fill_board()
         fill_grid()
         hide_ship(ship_1)
         hide_ship(ship_2)
         hide_ship(ship_3)
+        if any(True for i in ship_2 if i in ship_1):
+            filling = False
+        if any(True for z in ship_3 if z in ship_2):
+            filling = False
+        if any(True for k in ship_1 if k in ship_3):
+            filling = False
+        while filling is False:
+            main()
         ships.append(ship_1)
         ships.append(ship_2)
         ships.append(ship_3)
         print_board()
-        print(ships)
         print('It took you', shoot(), 'Turns to win!')
         if play_again() == "":
             print('The Game will restart in 10 seconds')
@@ -261,6 +277,7 @@ def main():
                 print(timer)
                 timer -= 1
             running = True
-        elif play_again() == "EXIT":
-            running = False
+        else:
+            break
 main()
+

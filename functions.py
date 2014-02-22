@@ -3,6 +3,42 @@ __author__ = 'Deacon-Blues'
 import random
 import time
 
+# Dictionary, column letter as value, column number as key
+column_letter = {1: 'A',
+                 2: 'B',
+                 3: 'C',
+                 4: 'D',
+                 5: 'E',
+                 6: 'F',
+                 7: 'G',
+                 8: 'H'}
+
+column_number = {'A': 1,
+                 'B': 2,
+                 'C': 3,
+                 'D': 4,
+                 'E': 5,
+                 'F': 6,
+                 'G': 7,
+                 'H': 8}
+
+x = []  # List of row numbers, inserted into the front of each row later on
+
+columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+
+rows = [1, 2, 3, 4, 5, 6, 7, 8]
+
+# First item is column second item is row
+ship_1 = []
+ship_2 = []
+ship_3 = []
+
+ships = []
+
+board = []  # Empty list to be populated by fill_board function
+
+y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
+
 
 # Function responsible for creating 8 lists of 8 O's
 def fill_board():
@@ -202,20 +238,36 @@ def clear_lst(lst):
     return lst
 
 
+def clear_lists():
+    clear_lst(ships)
+    clear_lst(ship_1)
+    clear_lst(ship_2)
+    clear_lst(ship_3)
+
+
 def main():
     running = True
     while running:
+        filling = True
         clear_lst(board)  # Change all instances of clear_lst to one function at a later date
+        clear_lists()
         fill_board()
         fill_grid()
         hide_ship(ship_1)
         hide_ship(ship_2)
         hide_ship(ship_3)
+        if any(True for i in ship_2 if i in ship_1):
+            filling = False
+        if any(True for z in ship_3 if z in ship_2):
+            filling = False
+        if any(True for k in ship_1 if k in ship_3):
+            filling = False
+        while filling is False:
+            main()
         ships.append(ship_1)
         ships.append(ship_2)
         ships.append(ship_3)
         print_board()
-        print(ships)
         print('It took you', shoot(), 'Turns to win!')
         if play_again() == "":
             print('The Game will restart in 10 seconds')
@@ -225,6 +277,8 @@ def main():
                 print(timer)
                 timer -= 1
             running = True
-        elif play_again() == "EXIT":
-            running = False
+        else:
+            break
+main()
+
 

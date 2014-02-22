@@ -66,3 +66,6 @@ Nineteenth Commit - Minor Bug Fix
 
 Twentieth Commit - Added Multiple ships Feature
                         - Added and adjusted functions to reflect multiship feature
+Twenty-First Commit - Fixed bug where multiple ships occupied same coordinates
+                            - Added function to check if coordinates are in use
+                            - Added function to clear multiple lists at once

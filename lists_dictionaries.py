@@ -19,19 +19,24 @@ column_number = {'A': 1,
                  'G': 7,
                  'H': 8}
 
+board = []  # Empty list to be populated by fill_board function
+
 x = []  # List of row numbers, inserted into the front of each row later on
 
 columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 
 rows = [1, 2, 3, 4, 5, 6, 7, 8]
 
+y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
+
 # First item is column second item is row
+# Lists that contain ship coordinates
 ship_1 = []
 ship_2 = []
 ship_3 = []
-
+# Lists that are used to hold ship coordinates and later, change the board
+ship_1_damage = []
+ship_2_damage = []
+ship_3_damage = []
+# Holds all current possible hit targets
 ships = []
-
-board = []  # Empty list to be populated by fill_board function
-
-y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid

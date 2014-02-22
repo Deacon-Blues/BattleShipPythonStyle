@@ -110,7 +110,7 @@ def get_target():
         target = []  # Target list
         running = True
         while running:
-            coordinates = input('Where would you like to fire sir?: ')  # Sets coordinate var to user input
+            coordinates = input('Where would you like to rain down mass murder?: ')  # Sets coordinate var to user input
             if check_if_cheat(coordinates) is False:  # If input is not cheat code
                 column = coordinates[0].upper()  # First character in coordinates string = column
                 row = coordinates[1]  # Second character in coordinates string = row
@@ -162,6 +162,19 @@ def play_again():
     return go_again
 
 
+# Function that changes the board to reflect the destruction of a ship
+# Changes all hit($) calls with destroyed(*) call
+def destroy_ship(ship):
+    for section in ship:  # for coordinate(list) in list of coordinates
+        column = column_number[section[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
+        row = (section[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+        missed_target = [column, row]  # Consider slimming this function down
+        board_index = missed_target[0]  # As a lot of this is not needed
+        board_list = missed_target[1]  # Written like this to help understand what represented what
+        board[board_list][board_index] = "*"  # In relation to the board
+    print_board()
+
+
 # Function that takes user inputted coordinates and checks for hit or miss
 def shoot():
     turn = 0  # Sets turn var to 0
@@ -173,40 +186,42 @@ def shoot():
                 turn += 1  # add 1 to turn var
                 if target in ships[0]:
                     ships[0].remove(target)
+                    hit(target)
+                    print('Hit!')
                     if not ships[0]:
                         ships.remove(ships[0])
+                        destroy_ship(ship_1_damage)
                         print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
                     if not ships:
-                        running = False  # Sets turn var to 10 as to end function
-                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                        return running
-                    else:
-                        hit(target)
-                        print('Hit!')
+                            running = False  # Sets turn var to 10 as to end function
+                            print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                            return running
                 elif target in ships[1]:
                     ships[1].remove(target)
+                    hit(target)
+                    print('Hit!')
                     if not ships[1]:
                         ships.remove(ships[1])
+                        destroy_ship(ship_2_damage)
                         print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
                     if not ships:
-                        running = False  # Sets turn var to 10 as to end function
-                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                        return running
-                    else:
-                        hit(target)
-                        print('Hit!')
+                            running = False  # Sets turn var to 10 as to end function
+                            print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                            return running
+
                 elif target in ships[2]:
                     ships[2].remove(target)
+                    hit(target)
+                    print('Hit!')
                     if not ships[2]:
                         ships.remove(ships[2])
+                        destroy_ship(ship_3_damage)
                         print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
                     if not ships:
-                        running = False  # Sets turn var to 10 as to end function
-                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                        return running
-                    else:
-                        hit(target)
-                        print('Hit!')
+                            running = False  # Sets turn var to 10 as to end function
+                            print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                            return running
+
                 else:  # Else
                     miss(target)  # Run miss function on target list
                     print('Miss! You have tried', turn, 'times!')
@@ -229,11 +244,15 @@ def clear_lst(lst):
     return lst
 
 
+# Function that clears a number of lists and returns them
 def clear_lists():
     clear_lst(ships)
     clear_lst(ship_1)
     clear_lst(ship_2)
     clear_lst(ship_3)
+    clear_lst(ship_1_damage)
+    clear_lst(ship_2_damage)
+    clear_lst(ship_3_damage)
 
 
 def main():
@@ -255,14 +274,17 @@ def main():
             filling = False
         while filling is False:
             main()
+        ship_1_damage.extend(ship_1)
+        ship_2_damage.extend(ship_2)
+        ship_3_damage.extend(ship_3)
         ships.append(ship_1)
         ships.append(ship_2)
         ships.append(ship_3)
         print_board()
         print('It took you', shoot(), 'Turns to win!')
         if play_again() == "":
-            print('The Game will restart in 10 seconds')
-            timer = 10
+            print('The Game will restart in 5 seconds')
+            timer = 5
             while timer > 0:
                 time.sleep(1)
                 print(timer)
@@ -270,6 +292,5 @@ def main():
             running = True
         else:
             break
-main()
 
 

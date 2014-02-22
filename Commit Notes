@@ -71,6 +71,12 @@ Twenty-First Commit - Fixed bug where multiple ships occupied same coordinates
                             - Added function to check if coordinates are in use
                             - Added function to clear multiple lists at once
 
-Twenty-Second Commit - Added ship sinking function
+Twenty-Second Commit - Added ship sinking feature
                             - Lets user know when they have hit all coordinates of a ship
-                            - Large addition to shoot function
+                            - Large addition to shoot function\
+
+Twenty-Third Commit - Added sunken ship feature
+                            - Added destroy_ship function
+                            - Remodeled shoot function to handle new features
+                    - Updated list and function files
+                    - Added three new lists to use with destroy_ship function

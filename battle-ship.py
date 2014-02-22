@@ -3,6 +3,7 @@ __author__ = 'Deacon-Blues'
 import random
 import time
 
+
 # Dictionary, column letter as value, column number as key
 column_letter = {1: 'A',
                  2: 'B',
@@ -220,6 +221,7 @@ def destroy_ship(ship):
 def shoot():
     turn = 0  # Sets turn var to 0
     running = True
+    ships_clone = ships.copy()
     while running:  # While running is True
         target = get_target()
         if valid_column(target) is True and valid_row(target) is True:
@@ -230,10 +232,10 @@ def shoot():
                     hit(target)
                     print('Hit!')
                     if not ships[0]:
-                        ships.remove(ships[0])
+                        ships_clone.remove(ships[0])
                         destroy_ship(ship_1_damage)
                         print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
-                    if not ships:
+                    if not ships_clone:
                             running = False  # Sets turn var to 10 as to end function
                             print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
                             return running
@@ -242,27 +244,25 @@ def shoot():
                     hit(target)
                     print('Hit!')
                     if not ships[1]:
-                        ships.remove(ships[1])
+                        ships_clone.remove(ships[1])
                         destroy_ship(ship_2_damage)
                         print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
-                    if not ships:
+                    if not ships_clone:
                             running = False  # Sets turn var to 10 as to end function
                             print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
                             return running
-
                 elif target in ships[2]:
                     ships[2].remove(target)
                     hit(target)
                     print('Hit!')
                     if not ships[2]:
-                        ships.remove(ships[2])
+                        ships_clone.remove(ships[2])
                         destroy_ship(ship_3_damage)
                         print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
-                    if not ships:
+                    if not ships_clone:
                             running = False  # Sets turn var to 10 as to end function
                             print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
                             return running
-
                 else:  # Else
                     miss(target)  # Run miss function on target list
                     print('Miss! You have tried', turn, 'times!')

@@ -80,3 +80,7 @@ Twenty-Third Commit - Added sunken ship feature
                             - Remodeled shoot function to handle new features
                     - Updated list and function files
                     - Added three new lists to use with destroy_ship function
+
+Twenty-Fourth Commit - Fixed Bugs in sunken ship feature
+                            - Added copy of reference list to use in place of list already being used as stack
+                            - Reworked shoot function

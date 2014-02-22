@@ -1,5 +1,3 @@
-__author__ = 'Deacon-Blues'
-
 # Dictionary, column letter as value, column number as key
 column_letter = {1: 'A',
                  2: 'B',

@@ -3,42 +3,6 @@ __author__ = 'Deacon-Blues'
 import random
 import time
 
-# Dictionary, column letter as value, column number as key
-column_letter = {1: 'A',
-                 2: 'B',
-                 3: 'C',
-                 4: 'D',
-                 5: 'E',
-                 6: 'F',
-                 7: 'G',
-                 8: 'H'}
-
-column_number = {'A': 1,
-                 'B': 2,
-                 'C': 3,
-                 'D': 4,
-                 'E': 5,
-                 'F': 6,
-                 'G': 7,
-                 'H': 8}
-
-x = []  # List of row numbers, inserted into the front of each row later on
-
-columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
-
-rows = [1, 2, 3, 4, 5, 6, 7, 8]
-
-# First item is column second item is row
-ship_1 = []
-ship_2 = []
-ship_3 = []
-
-ships = []
-
-board = []  # Empty list to be populated by fill_board function
-
-y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
-
 
 # Function responsible for creating 8 lists of 8 O's
 def fill_board():
@@ -207,15 +171,42 @@ def shoot():
         if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
                 turn += 1  # add 1 to turn var
-                if target in ships[0]:  # If target list == ship list
+                if target in ships[0]:
                     ships[0].remove(target)
-                    game_over(target)
+                    if not ships[0]:
+                        ships.remove(ships[0])
+                        print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
+                    if not ships:
+                        running = False  # Sets turn var to 10 as to end function
+                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                        return running
+                    else:
+                        hit(target)
+                        print('Hit!')
                 elif target in ships[1]:
                     ships[1].remove(target)
-                    game_over(target)
+                    if not ships[1]:
+                        ships.remove(ships[1])
+                        print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
+                    if not ships:
+                        running = False  # Sets turn var to 10 as to end function
+                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                        return running
+                    else:
+                        hit(target)
+                        print('Hit!')
                 elif target in ships[2]:
                     ships[2].remove(target)
-                    game_over(target)
+                    if not ships[2]:
+                        ships.remove(ships[2])
+                        print('YOU SANK AN ENEMY SHIP! GOOD SHOW OLD CHAP!')
+                    if not ships:
+                        running = False  # Sets turn var to 10 as to end function
+                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                        return running
+                    else:
+                        hit(target)
+                        print('Hit!')
                 else:  # Else
                     miss(target)  # Run miss function on target list
                     print('Miss! You have tried', turn, 'times!')

@@ -35,14 +35,17 @@ def random_column_key():
 
 
 # Converts column values to their int counterparts
-def convert_column():
+def convert_column(ship_origin, port, starboard):
     ship_origin[0] = column_letter[ship_origin[0]]
     port[0] = column_letter[port[0]]
     starboard[0] = column_letter[starboard[0]]
 
 
 # Function that takes random number functions as coordinates
-def hide_ship():
+def hide_ship(ship):
+    port = []  # Empty list, will represent ship origin coordinates + 1
+    starboard = []  # Empty list, will represent ship origin coordinates - 1
+    ship_origin = []
     direction = random.randrange(1, 3)
     if direction == 1:
         ship_origin.append(random_column_key())  # sets first item in ship to column
@@ -51,7 +54,7 @@ def hide_ship():
         port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
         starboard.append(ship_origin[0])  # Adds origin column to starboard list
         starboard.append(ship_origin[1] - 1)  # Adds origin row - 1 to starboard list
-        convert_column()
+        convert_column(ship_origin, port, starboard)
         ship.append(ship_origin)  # Adds origin coordinates to ship list
         ship.append(port)  # Adds port coordinates to ship list
         ship.append(starboard)  # Adds starboard coordinates to ship list
@@ -62,7 +65,7 @@ def hide_ship():
         port.append(ship_origin[1])  # Adds origin row to port list
         starboard.append(ship_origin[0] - 1)  # Adds origin column - 1 to starboard list
         starboard.append(ship_origin[1])  # Adds origin row to starboard list
-        convert_column()
+        convert_column(ship_origin, port, starboard)
         ship.append(ship_origin)  # Adds origin coordinates to ship list
         ship.append(port)  # Adds port coordinates to ship list
         ship.append(starboard)  # Adds starboard coordinates to ship list
@@ -136,10 +139,20 @@ def valid_row(target):
 # Checks if user inputs cheat code
 def check_if_cheat(coordinates):
     if coordinates == 'fs':
-        print(ship)
+        print(ships)
         return True
     else:
         return False
+
+
+def game_over(target):
+    if not ships:
+        running = False  # Sets turn var to 10 as to end function
+        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+        return running
+    else:
+        hit(target)
+        print('Hit!')
 
 
 # Function that gathers input on rather user wishes to continue playing
@@ -158,14 +171,15 @@ def shoot():
         if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
                 turn += 1  # add 1 to turn var
-                if target in ship:  # If target list == ship list
-                    ship.remove(target)
-                    if not ship:
-                        running = False  # Sets turn var to 10 as to end function
-                        print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
-                    else:
-                        hit(target)
-                        print('Hit!')
+                if target in ships[0]:  # If target list == ship list
+                    ships[0].remove(target)
+                    game_over(target)
+                elif target in ships[1]:
+                    ships[1].remove(target)
+                    game_over(target)
+                elif target in ships[2]:
+                    ships[2].remove(target)
+                    game_over(target)
                 else:  # Else
                     miss(target)  # Run miss function on target list
                     print('Miss! You have tried', turn, 'times!')
@@ -192,14 +206,16 @@ def main():
     running = True
     while running:
         clear_lst(board)  # Change all instances of clear_lst to one function at a later date
-        clear_lst(ship)
-        clear_lst(ship_origin)
-        clear_lst(port)
-        clear_lst(starboard)
         fill_board()
         fill_grid()
+        hide_ship(ship_1)
+        hide_ship(ship_2)
+        hide_ship(ship_3)
+        ships.append(ship_1)
+        ships.append(ship_2)
+        ships.append(ship_3)
         print_board()
-        hide_ship()
+        print(ships)
         print('It took you', shoot(), 'Turns to win!')
         if play_again() == "":
             print('The Game will restart in 10 seconds')

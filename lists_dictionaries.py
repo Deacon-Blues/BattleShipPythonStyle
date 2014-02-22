@@ -26,14 +26,12 @@ columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 rows = [1, 2, 3, 4, 5, 6, 7, 8]
 
 # First item is column second item is row
-ship_origin = []
+ship_1 = []
+ship_2 = []
+ship_3 = []
 
-ship = []
+ships = []
 
 board = []  # Empty list to be populated by fill_board function
 
 y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
-
-port = []  # Empty list, will represent ship origin coordinates + 1
-
-starboard = []  # Empty list, will represent ship origin coordinates - 1

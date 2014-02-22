@@ -67,9 +67,9 @@ def fill_grid():
 
 # Function responsible for printing board list as a 8x8 grid
 def print_board():
-    print(" ".join(y))
+    print("  ".join(y))
     for row in board:
-        print(" ".join(row))
+        print("  ".join(row))
 
 
 def random_column_key():
@@ -152,14 +152,24 @@ def get_target():
         target = []  # Target list
         running = True
         while running:
-            coordinates = input('Where would you like to rain down mass murder?: ')  # Sets coordinate var to user input
-            if check_if_cheat(coordinates) is False:  # If input is not cheat code
-                column = coordinates[0].upper()  # First character in coordinates string = column
-                row = coordinates[1]  # Second character in coordinates string = row
-                row = int(row)  # Sets row to int form
-                target.append(column)  # Adds column to target list
-                target.append(row)  # Add row to target list
-                return target
+            coordinates = input('Where would you like to open your orphan factory?: ')
+            if check_if_cheat(coordinates) is False and len(coordinates) == 2:  # If input is not cheat code
+                if coordinates[0].upper() in columns and int(coordinates[1]) in rows:  # If column and row input is ok
+                    column = coordinates[0].upper()  # First character in coordinates string = column
+                    row = coordinates[1]  # Second character in coordinates string = row
+                    row = int(row)  # Sets row to int form
+                    target.append(column)  # Adds column to target list
+                    target.append(row)  # Add row to target list
+                    return target
+                else:  # Else if coordinates invalid
+                    print('Input should include a letter A-E and a number 1-8')  # Error message
+                    running = True  # Return to start of loop
+            # If not cheat code, but length of input is not equal to two
+            elif len(coordinates) != 2:
+                print('Input should be 2 characters!')  # Error Message
+                running = True  # Return to start of while loop
+            else:
+                running = True
 
 
 # Checks if column input is valid

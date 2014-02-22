@@ -89,3 +89,6 @@ Twenty-Fifth Commit - Changed Board layout
                             - Added more whitespace, for greater readability
                     - Added logic to handle a plethora of false inputs
                             - Major changes to get_target function
+
+Twenty-Sixth Commit - Added second board
+                            - To me used later with VS feature

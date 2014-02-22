@@ -25,6 +25,8 @@ column_number = {'A': 1,
 
 board = []  # Empty list to be populated by fill_board function
 
+myboard = []
+
 x = []  # List of row numbers, inserted into the front of each row later on
 
 columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
@@ -47,9 +49,9 @@ ships = []
 
 
 # Function responsible for creating 8 lists of 8 O's
-def fill_board():
+def fill_board(some_board):
     for i in range(0, 8):
-        board.append(['O'] * 8)  # Adds 8 lists of 8 'O's to board list
+        some_board.append(['O'] * 8)  # Adds 8 lists of 8 'O's to board list
 
 
 # Refills x list with numbers 1-8 in string form
@@ -59,17 +61,17 @@ def fill_x(lst):
 
 
 # Function responsible for inserting 1-8 at the front of each list
-def fill_grid():
+def fill_grid(some_board):
     fill_x(x)
-    for row, i in zip(board, x):  # Used Zip function to loop through 2 separate lists
+    for row, i in zip(some_board, x):  # Used Zip function to loop through 2 separate lists
         row.insert(0, str(i))  # Insert the first number from the x list at the front
 
 
 # Function responsible for printing board list as a 8x8 grid
 def print_board():
-    print("  ".join(y))
-    for row in board:
-        print("  ".join(row))
+    print("  ".join(y), '\t', "  ".join(y))
+    for row, row_again in zip(board, myboard):
+        print("  ".join(row), '\t', "  ".join(row_again))
 
 
 def random_column_key():
@@ -310,10 +312,13 @@ def main():
     running = True
     while running:
         filling = True
+        clear_lst(myboard)
         clear_lst(board)  # Change all instances of clear_lst to one function at a later date
         clear_lists()
-        fill_board()
-        fill_grid()
+        fill_board(board)
+        fill_grid(board)
+        fill_board(myboard)
+        fill_grid(myboard)
         hide_ship(ship_1)
         hide_ship(ship_2)
         hide_ship(ship_3)

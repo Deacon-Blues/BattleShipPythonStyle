@@ -126,3 +126,6 @@ Thirty-Second Commit - Reintroduced most of the code redacted in the thirtieth c
 Thirty-Second Commit - Added Ship placement feature
                             - Player may now place their own ships
                                     - Known Bug - Random restart of ship placement
+
+Thirty-Third Commit - Fixed Known Bug
+                            - Moved player ship placing feature to after possible restart points

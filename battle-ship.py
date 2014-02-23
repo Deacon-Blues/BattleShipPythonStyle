@@ -420,6 +420,7 @@ def hide_myship(staging_ground):
             print('Input should be 2 characters!')  # Error Message
             running = True  # Return to start of while loop
         else:
+            print('1')
             running = True
 
 
@@ -454,11 +455,7 @@ def main():
         clear_lists()  # Clear all non referenced global lists
         fill_boards()
         hide_ships(ship_1, ship_2, ship_3)
-        print_board()
         ships_hidden = 0
-        while ships_hidden < 3:
-            hide_myships()
-            ships_hidden += 1
         # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
         # Consider finding a way to make it only re-randomize overlapped ship coordinates
         if any(True for i in ship_2 if i in ship_1):
@@ -469,6 +466,10 @@ def main():
             filling = False
         while filling is False:  # If a ship coordinate is pegged asa repeated
             main()  # Program restarts and tries again
+        print_board()
+        while ships_hidden < 3:
+            hide_myships()
+            ships_hidden += 1
         fill_ships()
         playing = True
         timer = 5

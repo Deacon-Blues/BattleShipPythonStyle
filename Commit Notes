@@ -122,3 +122,7 @@ Thirty-First Commit - Reworked Shoot function in preparation of reintroducing ch
 Thirty-Second Commit - Reintroduced most of the code redacted in the thirtieth commit
                             - Changed the formatting of player_turn(shoot) and enemy_turn
                             - No previous bugs present
+
+Thirty-Second Commit - Added Ship placement feature
+                            - Player may now place their own ships
+                                    - Known Bug - Random restart of ship placement

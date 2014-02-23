@@ -40,6 +40,10 @@ y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly pri
 ship_1 = []
 ship_2 = []
 ship_3 = []
+main_staging_ground = []
+staging_ground_one = []
+staging_ground_two = []
+staging_ground_three = []
 myship_1 = []
 myship_2 = []
 myship_3 = []
@@ -141,7 +145,17 @@ def hit(target, some_board):
     missed_target = [column, row]  # Consider slimming this function down
     board_index = missed_target[0]  # As a lot of this is not needed
     board_list = missed_target[1]  # Written like this to help understand what represented what
-    some_board[board_list][board_index] = "$"  # In relation to the board
+    some_board[board_list][board_index] = "$"  # In relation to the boar
+
+
+def enemy_hit(target, some_board):
+    column = column_number[target[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
+    row = (target[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+    enemy_target = [column, row]  # Consider slimming this function down
+    board_index = enemy_target[0]  # As a lot of this is not needed
+    board_list = enemy_target[1]  # Written like this to help understand what represented what
+    if some_board[board_list][board_index] == "@":  # In relation to the boar
+        some_board[board_list][board_index] = '$'
 
 
 # Function responsible for checking if target(list) has already been tried
@@ -171,6 +185,7 @@ def get_target():
                 else:  # Else if coordinates invalid
                     print('Input should include a letter A-E and a number 1-8')  # Error message
                     running = True  # Return to start of loop
+
             # If not cheat code, but length of input is not equal to two
             elif len(coordinates) != 2:
                 print('Input should be 2 characters!')  # Error Message
@@ -231,6 +246,16 @@ def destroy_ship(ship, some_board):
         board_index = missed_target[0]  # As a lot of this is not needed
         board_list = missed_target[1]  # Written like this to help understand what represented what
         some_board[board_list][board_index] = "*"  # In relation to the board
+
+
+def place_ship(ship, some_board):
+    for target in ship:
+        column = column_number[target[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
+        row = (target[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+        missed_target = [column, row]  # Consider slimming this function down
+        board_index = missed_target[0]  # As a lot of this is not needed
+        board_list = missed_target[1]  # Written like this to help understand what represented what
+        some_board[board_list][board_index] = "@"  # In relation to the board
 
 
 # Function that takes user inputted coordinates and checks for hit or miss
@@ -351,13 +376,51 @@ def clear_lists():
     clear_lst(ship_3_damage)
 
 
-def hide_ships(one, two, three, myone, mytwo, mythree):
+def hide_ships(one, two, three):
         hide_ship(one)  # Randomizes and checks coordinates for ship_1 list
         hide_ship(two)  # Randomizes and checks coordinates for ship_2 list
         hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
-        hide_ship(myone)  # Randomizes and checks coordinates for ship_1 list
-        hide_ship(mytwo)  # Randomizes and checks coordinates for ship_2 list
-        hide_ship(mythree)  # Randomizes and checks coordinates for ship_3 list
+
+
+def hide_myships():
+    clear_lst(staging_ground_one)
+    clear_lst(staging_ground_two)
+    clear_lst(staging_ground_three)
+    clear_lst(main_staging_ground)
+    hide_myship(staging_ground_one)
+    hide_myship(staging_ground_two)
+    hide_myship(staging_ground_three)
+    main_staging_ground.append(staging_ground_one)
+    main_staging_ground.append(staging_ground_two)
+    main_staging_ground.append(staging_ground_three)
+    print('----------------------SHIP DEPLOYED-----------------------')
+    place_ship(main_staging_ground, myboard)
+    print_board()
+
+
+def hide_myship(staging_ground):
+    running = True
+    while running:
+        target = input('Where would you like to flex your democracy?: ')
+        if check_if_cheat(target) is False and len(target) == 2:  # If input is not cheat code
+            if target[0].upper() in columns and int(target[1]) in rows:  # If column and row input is ok
+                column = target[0].upper()  # First character in coordinates string = column
+                row = target[1]  # Second character in coordinates string = row
+                row = int(row)  # Sets row to int form
+                staging_ground.append(column)  # Adds column to target list
+                staging_ground.append(row)  # Add row to target list
+                hit(staging_ground, myboard)
+                print_board()
+                running = False
+            else:  # Else if coordinates invalid
+                print('Input should include a letter A-E and a number 1-8')  # Error message
+                running = True  # Return to start of loop
+        # If not cheat code, but length of input is not equal to two
+        elif len(target) != 2:
+            print('Input should be 2 characters!')  # Error Message
+            running = True  # Return to start of while loop
+        else:
+            running = True
 
 
 def fill_boards():
@@ -390,7 +453,12 @@ def main():
         filling = True
         clear_lists()  # Clear all non referenced global lists
         fill_boards()
-        hide_ships(ship_1, ship_2, ship_3, myship_1, myship_2, myship_3)
+        hide_ships(ship_1, ship_2, ship_3)
+        print_board()
+        ships_hidden = 0
+        while ships_hidden < 3:
+            hide_myships()
+            ships_hidden += 1
         # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
         # Consider finding a way to make it only re-randomize overlapped ship coordinates
         if any(True for i in ship_2 if i in ship_1):
@@ -403,6 +471,12 @@ def main():
             main()  # Program restarts and tries again
         fill_ships()
         playing = True
+        timer = 5
+        print('Game Will be begin in....')
+        while timer > 0:
+            print(timer)
+            timer -= 1
+            time.sleep(1)
         while playing:
             print_board()
             player_target = get_target()
@@ -410,9 +484,9 @@ def main():
             player_turn(player_target)
             print_board()
             print('Enemy is charging his lazors!')
-            time.sleep(3)
+            time.sleep(2)
             print('ENEMY IS FIRING HIS LAZORS!!!!!!')
-            time.sleep(5)
+            time.sleep(.5)
             enemy_turn(enemy_target)
             if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
                 break

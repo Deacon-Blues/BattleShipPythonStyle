@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46ad22d2-c141-4158-ae8d-bf7c67ce92ed" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commit Notes" afterPath="$PROJECT_DIR$/Commit Notes" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/battle-ship.py" afterPath="$PROJECT_DIR$/battle-ship.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions.py" afterPath="$PROJECT_DIR$/functions.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lists_dictionaries.py" afterPath="$PROJECT_DIR$/lists_dictionaries.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BattleShip.iws" />
@@ -38,7 +41,7 @@
       <file leaf-file-name="functions.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="397" column="17" selection-start="17210" selection-end="17210" vertical-scroll-proportion="0.0" vertical-offset="6195" max-vertical-offset="6919">
+            <state line="377" column="0" selection-start="16815" selection-end="16815" vertical-scroll-proportion="0.0" vertical-offset="5855" max-vertical-offset="6579">
               <folding>
                 <element signature="e#29#42#0" expanded="true" />
               </folding>
@@ -46,10 +49,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle-ship.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="battle-ship.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/battle-ship.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="416" column="36" selection-start="17435" selection-end="17435" vertical-scroll-proportion="0.6678508" vertical-offset="6696" max-vertical-offset="7395">
+            <state line="17" column="24" selection-start="366" selection-end="366" vertical-scroll-proportion="147.36" vertical-offset="3973" max-vertical-offset="7378">
               <folding>
                 <element signature="e#29#42#0" expanded="true" />
               </folding>
@@ -66,10 +69,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commit Notes" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Commit Notes" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commit Notes">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="92" selection-start="5491" selection-end="5491" vertical-scroll-proportion="0.0" vertical-offset="1418" max-vertical-offset="2057">
+            <state line="105" column="73" selection-start="4968" selection-end="4968" vertical-scroll-proportion="0.39285713" vertical-offset="1554" max-vertical-offset="2210">
               <folding />
             </state>
           </provider>
@@ -100,10 +103,10 @@
       <list>
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/battle-ship.py" />
         <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/lists_dictionaries.py" />
         <option value="$PROJECT_DIR$/Commit Notes" />
-        <option value="$PROJECT_DIR$/battle-ship.py" />
       </list>
     </option>
   </component>
@@ -495,7 +498,11 @@
       <created>1393134502003</created>
       <updated>1393134502004</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Thirty-Second Commit">
+      <created>1393136052198</created>
+      <updated>1393136052198</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -553,7 +560,8 @@
     <MESSAGE value="Twenty-Ninth Commit" />
     <MESSAGE value="Thirtieth Commit" />
     <MESSAGE value="Thirtieth-First Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Thirtieth-First Commit" />
+    <MESSAGE value="Thirty-Second Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Thirty-Second Commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -657,7 +665,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="397" column="17" selection-start="17210" selection-end="17210" vertical-scroll-proportion="0.0" vertical-offset="6195" max-vertical-offset="6919">
+        <state line="377" column="0" selection-start="16815" selection-end="16815" vertical-scroll-proportion="0.0" vertical-offset="5855" max-vertical-offset="6579">
           <folding>
             <element signature="e#29#42#0" expanded="true" />
           </folding>
@@ -671,19 +679,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Commit Notes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="92" selection-start="5491" selection-end="5491" vertical-scroll-proportion="0.0" vertical-offset="1418" max-vertical-offset="2057">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/battle-ship.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="416" column="36" selection-start="17435" selection-end="17435" vertical-scroll-proportion="0.6678508" vertical-offset="6696" max-vertical-offset="7395">
+        <state line="17" column="24" selection-start="366" selection-end="366" vertical-scroll-proportion="147.36" vertical-offset="3973" max-vertical-offset="7378">
           <folding>
             <element signature="e#29#42#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Commit Notes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="73" selection-start="4968" selection-end="4968" vertical-scroll-proportion="0.39285713" vertical-offset="1554" max-vertical-offset="2210">
+          <folding />
         </state>
       </provider>
     </entry>

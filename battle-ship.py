@@ -223,15 +223,14 @@ def play_again():
 
 # Function that changes the board to reflect the destruction of a ship
 # Changes all hit($) calls with destroyed(*) call
-def destroy_ship(ship):
+def destroy_ship(ship, some_board):
     for section in ship:  # for coordinate(list) in list of coordinates
         column = column_number[section[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
         row = (section[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
         missed_target = [column, row]  # Consider slimming this function down
         board_index = missed_target[0]  # As a lot of this is not needed
         board_list = missed_target[1]  # Written like this to help understand what represented what
-        board[board_list][board_index] = "*"  # In relation to the board
-    print_board()
+        some_board[board_list][board_index] = "*"  # In relation to the board
 
 
 # Function that takes user inputted coordinates and checks for hit or miss
@@ -245,7 +244,7 @@ def player_turn(target):
                     print('Hit!')
                     if not ships[0]:
                         ships_clone.remove(ships[0])
-                        destroy_ship(ship_1_damage)
+                        destroy_ship(ship_1_damage, board)
                         print('YOU SANK THE NORTH KOREAN FLAG SHIP!')
                         if not ships_clone:
                                 print('---YOU HAVE SANK THE KOREAN FLEET! YOU ARE NOW GLORIOUS LEADER---')
@@ -256,7 +255,7 @@ def player_turn(target):
                     print('Hit!')
                     if not ships[1]:
                         ships_clone.remove(ships[1])
-                        destroy_ship(ship_2_damage)
+                        destroy_ship(ship_2_damage, board)
                         print('YOU SANK AN ENEMY SHIP! MUCH WOW REALLY BOOM!')
                         if not ships_clone:
                                 running = False  # Sets turn var to 10 as to end function
@@ -268,7 +267,7 @@ def player_turn(target):
                     print('Hit!')
                     if not ships[2]:
                         ships_clone.remove(ships[2])
-                        destroy_ship(ship_3_damage)
+                        destroy_ship(ship_3_damage, board)
                         print('SHIELDS FAILING! THEIR WARP COILS ARE VENTING PLASMA: BREACH IMMINENT!')
                         if not ships_clone:
                                 running = False  # Sets turn var to 10 as to end function
@@ -301,7 +300,7 @@ def enemy_turn(target):
                 print('Enemy Hit!')
                 if not myships[0]:
                     myships_clone.remove(myships[0])
-                    destroy_ship(myship_1_damage)
+                    destroy_ship(myship_1_damage, myboard)
                     print('YOUR GLORIOUS FLAG SHIP IS NO MORE! CUT RICE STIPENDS QUUIIICKKK!!!!')
                     if not myships_clone:
                         print('---YOU LOST THE KOREAN FLEET! YOU ARE NOW SHITTY RICE MONGER---')
@@ -312,7 +311,7 @@ def enemy_turn(target):
                 print('Enemy Hit!')
                 if not myships[1]:
                     myships_clone.remove(myships[1])
-                    destroy_ship(myship_2_damage)
+                    destroy_ship(myship_2_damage, myboard)
                     print('YOUR SHIPS IS TEH DEAD! MUCH SAD, REALLY WOW!')
                     if not myships_clone:
                         print('---YOU LOOSE: PLAYER ACCOUNT DEDUCTED 4.20 DODGE COINS---')  # You dun won!
@@ -323,7 +322,7 @@ def enemy_turn(target):
                 print('Enemy Hit!')
                 if not myships[2]:
                     myships_clone.remove(myships[2])
-                    destroy_ship(myship_3_damage)
+                    destroy_ship(myship_3_damage, myboard)
                     print('SHIELDS FAILING! OUR WARP COILS ARE VENTING PLASMA: BREACH IMMINENT!')
                     if not myships_clone:
                         print('---ACTIVATE SELF DESTRUCT SEQUENCE JAYNEWAY-ALPHA-3359---')  # You dun won!
@@ -413,7 +412,7 @@ def main():
             print('Enemy is charging his lazors!')
             time.sleep(3)
             print('ENEMY IS FIRING HIS LAZORS!!!!!!')
-            time.sleep(3)
+            time.sleep(5)
             enemy_turn(enemy_target)
             if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
                 break

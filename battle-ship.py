@@ -230,20 +230,14 @@ def destroy_ship(ship):
 
 
 # Function that takes user inputted coordinates and checks for hit or miss
-def shoot():
-    turn = 0  # Sets turn var to 0
-    running = True
+def shoot(target):
     ships_clone = ships.copy()
-    while running:  # While running is True
-        target = get_target()
-        if valid_column(target) is True and valid_row(target) is True:
+    if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
-                turn += 1  # add 1 to turn var
                 if target in ships[0]:
                     ships[0].remove(target)
                     hit(target)
                     print('Hit!')
-                    print('Hit! You have bombed', turn, 'Coordinates')
                     if not ships[0]:
                         ships_clone.remove(ships[0])
                         destroy_ship(ship_1_damage)
@@ -256,7 +250,6 @@ def shoot():
                     ships[1].remove(target)
                     hit(target)
                     print('Hit!')
-                    print('Hit! You have bombed', turn, 'Coordinates')
                     if not ships[1]:
                         ships_clone.remove(ships[1])
                         destroy_ship(ship_2_damage)
@@ -269,7 +262,6 @@ def shoot():
                     ships[2].remove(target)
                     hit(target)
                     print('Hit!')
-                    print('Hit! You have bombed', turn, 'Coordinates')
                     if not ships[2]:
                         ships_clone.remove(ships[2])
                         destroy_ship(ship_3_damage)
@@ -280,18 +272,17 @@ def shoot():
                                 return running
                 else:  # Else
                     miss(target)  # Run miss function on target list
-                    print('Miss! You have bombed', turn, 'Coordinates')
+                    print('Miss!')
             else:
                 print('We\'ve already bombarded that location sir!')
-        elif valid_column(target) is False and valid_row(target) is True:  # This logic
-            print('Invalid Column input!')
-        elif valid_column(target) is True and valid_row(target) is False:  # handles invalid inputs
-            print('Invalid row input!')
-        elif valid_column(target) is False and valid_row(target) is False:  # for column, row, and both column and row
-            print('Invalid inputs!')
-        else:
-            print('Error')
-    return turn
+    elif valid_column(target) is False and valid_row(target) is True:  # This logic
+        print('Invalid Column input!')
+    elif valid_column(target) is True and valid_row(target) is False:  # handles invalid inputs
+        print('Invalid row input!')
+    elif valid_column(target) is False and valid_row(target) is False:  # for column, row, and both column and row
+        print('Invalid inputs!')
+    else:
+        print('Error')
 
 
 # Clears  a given list and returns it
@@ -354,7 +345,11 @@ def main():
         while filling is False:  # If a ship coordinate is pegged asa repeated
             main()  # Program restarts and tries again
         fill_ships()
-        print('It took you', shoot(), 'Turns to win!')  # Runs shoot function and returns number of turns taken to win
+        playing = True
+        while playing:
+            target = get_target()
+            if shoot(target) is False:
+                break
         if play_again() == "":  # Runs play again function and if user hits enter
             print('The Game will restart in 5 seconds')
             timer = 5  # Timer

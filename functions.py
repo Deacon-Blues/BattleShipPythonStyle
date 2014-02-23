@@ -1,3 +1,9 @@
+__author__ = 'Deacon-Blues'
+
+import random
+import time
+
+
 # Function responsible for creating 8 lists of 8 O's
 def fill_board(some_board):
     for i in range(0, 8):
@@ -234,7 +240,48 @@ def shoot():
         if valid_column(target) is True and valid_row(target) is True:
             if check_if_tried(target) is False:
                 turn += 1  # add 1 to turn var
-                check_if_hit(target, ships_clone, turn)
+                if target in ships[0]:
+                    ships[0].remove(target)
+                    hit(target)
+                    print('Hit!')
+                    print('Hit! You have bombed', turn, 'Coordinates')
+                    if not ships[0]:
+                        ships_clone.remove(ships[0])
+                        destroy_ship(ship_1_damage)
+                        print('YOU SANK THE NORTH KOREAN FLAG SHIP!')
+                        if not ships_clone:
+                                running = False  # Sets turn var to 10 as to end function
+                                print('---YOU HAVE SANK THE KOREAN FLEET! YOU ARE NOW GLORIOUS LEADER---')
+                                return running
+                elif target in ships[1]:
+                    ships[1].remove(target)
+                    hit(target)
+                    print('Hit!')
+                    print('Hit! You have bombed', turn, 'Coordinates')
+                    if not ships[1]:
+                        ships_clone.remove(ships[1])
+                        destroy_ship(ship_2_damage)
+                        print('YOU SANK AN ENEMY SHIP! MUCH WOW REALLY BOOM!')
+                        if not ships_clone:
+                                running = False  # Sets turn var to 10 as to end function
+                                print('---YOU WIN: PLAYER RECEIVES 4.20 DODGE COINS---')  # You dun won!
+                                return running
+                elif target in ships[2]:
+                    ships[2].remove(target)
+                    hit(target)
+                    print('Hit!')
+                    print('Hit! You have bombed', turn, 'Coordinates')
+                    if not ships[2]:
+                        ships_clone.remove(ships[2])
+                        destroy_ship(ship_3_damage)
+                        print('SHIELDS FAILING! THEIR WARP COILS ARE VENTING PLASMA: BREACH IMMINENT!')
+                        if not ships_clone:
+                                running = False  # Sets turn var to 10 as to end function
+                                print('---BOOM HEADSHOT, YOU SANK HIS BRAP SHIP!---')  # You dun won!
+                                return running
+                else:  # Else
+                    miss(target)  # Run miss function on target list
+                    print('Miss! You have bombed', turn, 'Coordinates')
             else:
                 print('We\'ve already bombarded that location sir!')
         elif valid_column(target) is False and valid_row(target) is True:  # This logic
@@ -271,17 +318,31 @@ def hide_ships(one, two, three):
         hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
 
 
+def fill_boards():
+    clear_lst(myboard)  # Clear global myboard list
+    clear_lst(board)  # Clear global board list
+    fill_board(board)  # populates board list with appropriate number of O's
+    fill_grid(board)  # adds the row labels to board list
+    fill_board(myboard)  # populates myboard list with appropriate number of O's
+    fill_grid(myboard)  # adds row labels to myboard list
+
+
+def fill_ships():
+    ship_1_damage.extend(ship_1)  # Creates copies
+    ship_2_damage.extend(ship_2)  # of all three ships
+    ship_3_damage.extend(ship_3)  # to be referenced by the destroy_ship function
+    ships.append(ship_1)  # Adds all three ships
+    ships.append(ship_2)  # To a single list(ships)
+    ships.append(ship_3)  # To be used to keep track of current ships in play
+    print_board()
+
+
 def main():
     running = True
     while running:
         filling = True
-        clear_lst(myboard)  # Clear global myboard list
-        clear_lst(board)  # Clear global board list
         clear_lists()  # Clear all non referenced global lists
-        fill_board(board)  # populates board list with appropriate number of O's
-        fill_grid(board)  # adds the row labels to board list
-        fill_board(myboard)  # populates myboard list with appropriate number of O's
-        fill_grid(myboard)  # adds row labels to myboard list
+        fill_boards()
         hide_ships(ship_1, ship_2, ship_3)
         # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
         # Consider finding a way to make it only re-randomize overlapped ship coordinates
@@ -293,13 +354,7 @@ def main():
             filling = False
         while filling is False:  # If a ship coordinate is pegged asa repeated
             main()  # Program restarts and tries again
-        ship_1_damage.extend(ship_1)  # Creates copies
-        ship_2_damage.extend(ship_2)  # of all three ships
-        ship_3_damage.extend(ship_3)  # to be referenced by the destroy_ship function
-        ships.append(ship_1)  # Adds all three ships
-        ships.append(ship_2)  # To a single list(ships)
-        ships.append(ship_3)  # To be used to keep track of current ships in play
-        print_board()
+        fill_ships()
         print('It took you', shoot(), 'Turns to win!')  # Runs shoot function and returns number of turns taken to win
         if play_again() == "":  # Runs play again function and if user hits enter
             print('The Game will restart in 5 seconds')

@@ -37,9 +37,16 @@ y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly pri
 ship_1 = []
 ship_2 = []
 ship_3 = []
+myship_1 = []
+myship_2 = []
+myship_3 = []
 # Lists that are used to hold ship coordinates and later, change the board
 ship_1_damage = []
 ship_2_damage = []
 ship_3_damage = []
+myship_1_damage = []
+myship_2_damage = []
+myship_3_damage = []
 # Holds all current possible hit targets
 ships = []
+myships = []

@@ -104,3 +104,12 @@ Twenty-Eighth Commit - More code cleaning
                            - Changed error/status messages
                            - Downsized/created functions
                                 - Now new content, cleaning up sourcecode
+
+Twenty-Ninth Commit -Added VS feature
+                        - Game is now player vs computer
+                        - Turns are no longer counted
+                        - Second board is now in use
+                        - Major function changes and addition
+                                - Added large amount of sourcecode
+                                - Added multiple new lists to accommodate new functions and logic
+                                - Many minor bug fixes, message updates, and code formatting

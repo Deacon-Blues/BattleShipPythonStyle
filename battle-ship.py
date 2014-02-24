@@ -1,4 +1,4 @@
-__author__ = 'Deacon-Blues'
+__author__ = 'Terrance'
 
 import random
 import time
@@ -282,8 +282,8 @@ def destroy_my_ship(ship):
 
 def place_ship(ship, some_board):
     for target in ship:
-        column = column_number[target[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
-        row = target[1] - 1  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+        column = target[0]   # Column = 1st element's value:key in column_number Dictionary
+        row = target[1] - 1   # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
         missed_target = [column, row]  # Consider slimming this function down
         board_index = missed_target[0]  # As a lot of this is not needed
         board_list = missed_target[1]  # Written like this to help understand what represented what
@@ -413,7 +413,7 @@ def clear_lists():
     clear_lst(myship_3)
     #clear_lst(myship_1_damage)
     #clear_lst(myship_2_damage)
-    #2clear_lst(myship_3_damage)
+    #clear_lst(myship_3_damage)
 
 
 def hide_ships(one, two, three):
@@ -422,46 +422,78 @@ def hide_ships(one, two, three):
         hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
 
 
+def check_if_already_occupied(target):
+    board_index = target[0]  # Board index(aka column) = 1st element's value:key in column_number
+    board_row = target[1]    # Board row(aka list) = 2nd element in target list
+    if myboard[board_row][board_index] == "@":
+        return True  # Return true because X means its already been tried
+    else:  # else
+        return False  # False because it has not been tried
+
+
+def get_ship_origin(staging_ground):
+    running = True
+    while running:
+        print('Remember: The Ship will extend to the spaces directly above and below the ship origin.')
+        print('Watch out for the end of the board!!!')
+        ship_origin = input('Enter Ship origin: ')
+        column = column_number[ship_origin[0].upper()]
+        row = ship_origin[1]
+        row = int(row)
+        coord = [column, row]
+        if check_if_already_occupied(coord) is False:
+            board_index = column  # As a lot of this is not needed
+            board_list = row - 1  # Written like this to help understand what represented what
+            myboard[board_list][board_index] = '@'
+            staging_ground.append(coord)
+            running = False
+        else:
+            running = True
+
+
+def extend_ship_vertical(staging_ground):
+    port = []
+    starboard = []
+    staging_ground_clone = copy.deepcopy(staging_ground)
+    staging_ground_clone[0][1] += 1
+    port.append(staging_ground_clone[0][0])
+    port.append(staging_ground_clone[0][1])
+    staging_ground_clone[0][1] -= 2
+    starboard.append(staging_ground_clone[0][0])
+    starboard.append(staging_ground_clone[0][1])
+    staging_ground.append(port)
+    staging_ground.append(starboard)
+
+
+def extend_ship_horizontal(staging_ground):
+    port = []
+    starboard = []
+    staging_ground_clone = copy.deepcopy(staging_ground)
+    staging_ground_clone[0][0] += 1
+    port.append(staging_ground_clone[0][0])
+    port.append(staging_ground_clone[0][1])
+    staging_ground_clone[0][0] -= 2
+    starboard.append(staging_ground_clone[0][0])
+    starboard.append(staging_ground_clone[0][1])
+    staging_ground.append(port)
+    staging_ground.append(starboard)
+
+
 def hide_myships(ship):
     main_staging_ground = []
-    staging_ground_one = []
-    staging_ground_two = []
-    staging_ground_three = []
-    hide_myship(staging_ground_one)
-    hide_myship(staging_ground_two)
-    hide_myship(staging_ground_three)
-    main_staging_ground.append(staging_ground_one)
-    main_staging_ground.append(staging_ground_two)
-    main_staging_ground.append(staging_ground_three)
+    get_ship_origin(main_staging_ground)
+    print('Would you like to place your ship [V]ertical or [H]orizontal: ')
+    v_or_h = input('Enter: V for Vertical or H for horizontal: ')
+    if v_or_h == 'V':
+        extend_ship_vertical(main_staging_ground)
+    elif v_or_h == 'H':
+        extend_ship_horizontal(main_staging_ground)
+    else:
+        print('Error101')
     ship.append(main_staging_ground)
     print('----------------------SHIP DEPLOYED-----------------------')
     place_ship(main_staging_ground, myboard)
     print_board()
-
-
-def hide_myship(staging_ground):
-    running = True
-    while running:
-        target = input('Where would you like to flex your democracy?: ')
-        if check_if_cheat(target) is False and len(target) == 2:  # If input is not cheat code
-            if target[0].upper() in columns and int(target[1]) in rows:  # If column and row input is ok
-                column = target[0].upper()  # First character in coordinates string = column
-                row = target[1]  # Second character in coordinates string = row
-                row = int(row)  # Sets row to int form
-                staging_ground.append(column)  # Adds column to target list
-                staging_ground.append(row)  # Add row to target list
-                hit(staging_ground, myboard)
-                print_board()
-                running = False
-            else:  # Else if coordinates invalid
-                print('Input should include a letter A-E and a number 1-8')  # Error message
-                running = True  # Return to start of loop
-        # If not cheat code, but length of input is not equal to two
-        elif len(target) != 2:
-            print('Input should be 2 characters!')  # Error Message
-            running = True  # Return to start of while loop
-        else:
-            running = True
 
 
 def fill_boards():
@@ -534,14 +566,14 @@ def main():
             print_board()
             player_target = get_target()
             print('CHARGING STARBOARD PHASER BANKS')
-            #time.sleep(2)
+            time.sleep(2)
             player_turn(player_target)
             print_board()
             #time.sleep(2)
             print('Enemy is charging his lazors!')
-            #time.sleep(2)
+            time.sleep(2)
             print('ENEMY IS FIRING HIS LAZORS!!!!!!')
-            #time.sleep(2)
+            time.sleep(1)
             enemy_turn(myships_clone, myship_1_damage, myship_2_damage, myship_3_damage)
             if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
                 break

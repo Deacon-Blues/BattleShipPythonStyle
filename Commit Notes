@@ -141,5 +141,9 @@ Thirty-Fourth Commit - Many bug fixes
 
 Thirty-Fifth Commit - Fixed known bug
                             - destroy_my_ship should now work properly
-                                    - Separated lists that hold coords to be detroyed and coords hit
-                                    
+                                    - Separated lists that hold coords to be destroyed and coords hit
+
+Thirty-Sixth Commit - Added automated ship placement feature
+                            - Player chooses ship origin and which direction to extend
+                            - Need a lot of clean-up work, to insure proper inputs
+                            - Essentially complete overhaul on the previous myship hiding feature

@@ -133,3 +133,8 @@ Thirty-Third Commit - Large overhaul done on both VS and ship placement features
 
 Thirty-Third Commit - Fixed Known Bug
                             - Moved player ship placing feature to after possible restart points
+
+Thirty-Fourth Commit - Many bug fixes
+                            - Destroy_my_ships is the only problem function
+                                    - List that holds myship coords are connected to myship_damage coords
+                                            - Find way to separate lists, but keep them = in value

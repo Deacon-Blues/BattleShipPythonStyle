@@ -127,5 +127,9 @@ Thirty-Second Commit - Added Ship placement feature
                             - Player may now place their own ships
                                     - Known Bug - Random restart of ship placement
 
+Thirty-Third Commit - Large overhaul done on both VS and ship placement features
+                            - All large, game crashing bugs fixed
+                                    - Needs a lot of cleanup
+
 Thirty-Third Commit - Fixed Known Bug
                             - Moved player ship placing feature to after possible restart points

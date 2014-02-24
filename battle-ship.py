@@ -40,10 +40,7 @@ y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly pri
 ship_1 = []
 ship_2 = []
 ship_3 = []
-main_staging_ground = []
-staging_ground_one = []
-staging_ground_two = []
-staging_ground_three = []
+
 myship_1 = []
 myship_2 = []
 myship_3 = []
@@ -156,13 +153,35 @@ def enemy_hit(target, some_board):
     board_list = enemy_target[1]  # Written like this to help understand what represented what
     if some_board[board_list][board_index] == "@":  # In relation to the boar
         some_board[board_list][board_index] = '$'
+        print('Enemy Hit!')
+        return True
+    else:
+        return False
+
+
+def enemy_miss(target, some_board):
+    column = target[0]  # Column = 1st element's value:key in column_number Dictionary
+    row = (target[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+    missed_target = [column, row]  # Consider slimming this function down
+    board_index = missed_target[0]  # As a lot of this is not needed
+    board_list = missed_target[1]  # Written like this to help understand what represented what
+    some_board[board_list][board_index] = "X"  # In relation to the board
 
 
 # Function responsible for checking if target(list) has already been tried
-def check_if_tried(target):
+def check_if_tried(target, some_board):
     board_index = column_number[target[0].upper()]  # Board index(aka column) = 1st element's value:key in column_number
     board_row = target[1] - 1  # Board row(aka list) = 2nd element in target list
-    if board[board_row][board_index] == "X" or board[board_row][board_index] == '$':
+    if some_board[board_row][board_index] == "X" or board[board_row][board_index] == '$':
+        return True  # Return true because X means its already been tried
+    else:  # else
+        return False  # False because it has not been tried
+
+
+def check_if_tried_enemy(target):
+    board_index = target[0]  # Board index(aka column) = 1st element's value:key in column_number
+    board_row = target[1]    # Board row(aka list) = 2nd element in target list
+    if myboard[board_row - 1][board_index] == "X" or myboard[board_row][board_index] == '$':
         return True  # Return true because X means its already been tried
     else:  # else
         return False  # False because it has not been tried
@@ -196,8 +215,8 @@ def get_target():
 
 def get_enemy_target():
     target = []
-    column = random.randrange(1, 9)
-    row = random.randrange(1, 9)
+    column = random.randrange(0, 8)
+    row = random.randrange(0, 8)
     column = column_letter[column]
     target.append(column)
     target.append(row)
@@ -223,7 +242,7 @@ def valid_row(target):
 # Checks if user inputs cheat code
 def check_if_cheat(coordinates):
     if coordinates == 'fs':
-        print(ships)
+        print(myships)
         return True
     else:
         return False
@@ -251,7 +270,7 @@ def destroy_ship(ship, some_board):
 def place_ship(ship, some_board):
     for target in ship:
         column = column_number[target[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
-        row = (target[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
+        row = target[1] - 1  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
         missed_target = [column, row]  # Consider slimming this function down
         board_index = missed_target[0]  # As a lot of this is not needed
         board_list = missed_target[1]  # Written like this to help understand what represented what
@@ -262,7 +281,7 @@ def place_ship(ship, some_board):
 def player_turn(target):
     ships_clone = ships.copy()
     if valid_column(target) is True and valid_row(target) is True:
-            if check_if_tried(target) is False:
+            if check_if_tried(target, board) is False:
                 if target in ships[0]:
                     ships[0].remove(target)
                     hit(target, board)
@@ -313,47 +332,41 @@ def player_turn(target):
         print('Error')
 
 
-def enemy_turn(target):
+def enemy_turn():
     getting_unused_target = True
     while getting_unused_target:
-        myships_clone = myships.copy()
-        if check_if_tried(target) is False:
+        enemy_target = []
+        column = random.randrange(0, 8)
+        row = random.randrange(1, 8)
+        column += 1
+        enemy_target.append(column)
+        enemy_target.append(row)
+        if check_if_tried_enemy(enemy_target) is False:
             getting_unused_target = False
-            if target in myships[0]:
-                myships[0].remove(target)
-                hit(target, myboard)
+            column = enemy_target[0]
+            row = enemy_target[1]  # Row = Second element of target lst - 1( -1 makes it work correctly
+            target = [column, row]  # Consider slimming this function down
+            board_index = target[0]  # As a lot of this is not needed
+            board_list = target[1]  # Written like this to help understand what represented what
+            print(target)
+            if myboard[board_list - 1][board_index] == "@":  # In relation to the boar
+                myboard[board_list - 1][board_index] = "$"
                 print('Enemy Hit!')
                 if not myships[0]:
-                    myships_clone.remove(myships[0])
                     destroy_ship(myship_1_damage, myboard)
                     print('YOUR GLORIOUS FLAG SHIP IS NO MORE! CUT RICE STIPENDS QUUIIICKKK!!!!')
-                    if not myships_clone:
+                    if not myships:
                         print('---YOU LOST THE KOREAN FLEET! YOU ARE NOW SHITTY RICE MONGER---')
-                        return False
-            elif target in myships[1]:
-                myships[1].remove(target)
-                hit(target, myboard)
-                print('Enemy Hit!')
-                if not myships[1]:
-                    myships_clone.remove(myships[1])
+                elif not myships[1]:
                     destroy_ship(myship_2_damage, myboard)
                     print('YOUR SHIPS IS TEH DEAD! MUCH SAD, REALLY WOW!')
-                    if not myships_clone:
-                        print('---YOU LOOSE: PLAYER ACCOUNT DEDUCTED 4.20 DODGE COINS---')  # You dun won!
-                        return False
-            elif target in myships[2]:
-                myships[2].remove(target)
-                hit(target, myboard)
-                print('Enemy Hit!')
-                if not myships[2]:
-                    myships_clone.remove(myships[2])
-                    destroy_ship(myship_3_damage, myboard)
-                    print('SHIELDS FAILING! OUR WARP COILS ARE VENTING PLASMA: BREACH IMMINENT!')
-                    if not myships_clone:
-                        print('---ACTIVATE SELF DESTRUCT SEQUENCE JAYNEWAY-ALPHA-3359---')  # You dun won!
-                        return False
+                    if not myships:
+                        print('---YOU LOOSE: PLAYER ACCOUNT DEDUCTED 4.20 DODGE COINS---')
+                elif not myships[2]:
+                    if not myships:
+                        print('---ACTIVATE SELF DESTRUCT SEQUENCE JAYNEWAY-ALPHA-3359---')
             else:  # Else
-                miss(target, myboard)  # Run miss function on target list
+                enemy_miss(enemy_target, myboard)  # Run miss function on target list
                 print('Enemy Miss!')
         else:
             getting_unused_target = True
@@ -382,17 +395,18 @@ def hide_ships(one, two, three):
         hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
 
 
-def hide_myships():
-    clear_lst(staging_ground_one)
-    clear_lst(staging_ground_two)
-    clear_lst(staging_ground_three)
-    clear_lst(main_staging_ground)
+def hide_myships(ship):
+    main_staging_ground = []
+    staging_ground_one = []
+    staging_ground_two = []
+    staging_ground_three = []
     hide_myship(staging_ground_one)
     hide_myship(staging_ground_two)
     hide_myship(staging_ground_three)
     main_staging_ground.append(staging_ground_one)
     main_staging_ground.append(staging_ground_two)
     main_staging_ground.append(staging_ground_three)
+    ship.append(main_staging_ground)
     print('----------------------SHIP DEPLOYED-----------------------')
     place_ship(main_staging_ground, myboard)
     print_board()
@@ -420,7 +434,6 @@ def hide_myship(staging_ground):
             print('Input should be 2 characters!')  # Error Message
             running = True  # Return to start of while loop
         else:
-            print('1')
             running = True
 
 
@@ -443,9 +456,9 @@ def fill_ships():
     myship_1_damage.extend(myship_1)  # Creates copies
     myship_2_damage.extend(myship_2)  # of all three ships
     myship_3_damage.extend(myship_3)  # to be referenced by the destroy_ship function
-    myships.append(myship_1)  # Adds all three ships
-    myships.append(myship_2)  # To a single list(ships)
-    myships.append(myship_3)  # To be used to keep track of current ships in play
+    myships.append(myship_1)
+    myships.append(myship_2)
+    myships.append(myship_3)
 
 
 def main():
@@ -455,7 +468,7 @@ def main():
         clear_lists()  # Clear all non referenced global lists
         fill_boards()
         hide_ships(ship_1, ship_2, ship_3)
-        ships_hidden = 0
+        #ships_hidden = 0
         # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
         # Consider finding a way to make it only re-randomize overlapped ship coordinates
         if any(True for i in ship_2 if i in ship_1):
@@ -466,39 +479,44 @@ def main():
             filling = False
         while filling is False:  # If a ship coordinate is pegged asa repeated
             main()  # Program restarts and tries again
-        print_board()
-        while ships_hidden < 3:
-            hide_myships()
-            ships_hidden += 1
-        fill_ships()
-        playing = True
-        timer = 5
-        print('Game Will be begin in....')
-        while timer > 0:
-            print(timer)
-            timer -= 1
-            time.sleep(1)
-        while playing:
-            print_board()
-            player_target = get_target()
-            enemy_target = get_enemy_target()
-            player_turn(player_target)
-            print_board()
-            print('Enemy is charging his lazors!')
-            time.sleep(2)
-            print('ENEMY IS FIRING HIS LAZORS!!!!!!')
-            time.sleep(.5)
-            enemy_turn(enemy_target)
-            if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
-                break
-        if play_again() == "":  # Runs play again function and if user hits enter
-            print('The Game will restart in 5 seconds')
-            timer = 5  # Timer
-            while timer > 0:  # While timer  > 0(Not done)
-                time.sleep(1)  # Wait 1 sec
-                print(timer)  # print timer var
-                timer -= 1  # timer var - 1 and equal to the result
-            running = True
         else:
-            break
+            print_board()
+            hide_myships(myship_1)
+            hide_myships(myship_2)
+            hide_myships(myship_3)
+            fill_ships()
+            playing = True
+            timer = 5
+            print('Game Will be begin in....')
+            while timer > 0:
+                print(timer)
+                timer -= 1
+                time.sleep(1)
+            while playing:
+                print_board()
+                player_target = get_target()
+                print('CHARGING STARBOARD PHASER BANKS')
+                time.sleep(2)
+                player_turn(player_target)
+                print_board()
+                time.sleep(2)
+                print('Enemy is charging his lazors!')
+                time.sleep(2)
+                print('ENEMY IS FIRING HIS LAZORS!!!!!!')
+                time.sleep(2)
+                enemy_turn()
+                if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
+                    break
+                if len(myships[0]) == 0 and len(myships[1]) == 0 and len(myships[2]) == 0:
+                    break
+            if play_again() == "":  # Runs play again function and if user hits enter
+                print('The Game will restart in 5 seconds')
+                timer = 5  # Timer
+                while timer > 0:  # While timer  > 0(Not done)
+                    time.sleep(1)  # Wait 1 sec
+                    print(timer)  # print timer var
+                    timer -= 1  # timer var - 1 and equal to the result
+                running = True
+            else:
+                break
 main()

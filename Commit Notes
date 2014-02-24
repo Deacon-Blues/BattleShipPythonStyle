@@ -138,3 +138,8 @@ Thirty-Fourth Commit - Many bug fixes
                             - Destroy_my_ships is the only problem function
                                     - List that holds myship coords are connected to myship_damage coords
                                             - Find way to separate lists, but keep them = in value
+
+Thirty-Fifth Commit - Fixed known bug
+                            - destroy_my_ship should now work properly
+                                    - Separated lists that hold coords to be detroyed and coords hit
+                                    

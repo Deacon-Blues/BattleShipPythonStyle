@@ -147,3 +147,10 @@ Thirty-Sixth Commit - Added automated ship placement feature
                             - Player chooses ship origin and which direction to extend
                             - Need a lot of clean-up work, to insure proper inputs
                             - Essentially complete overhaul on the previous myship hiding feature
+
+
+Thirty-Seventh Commit - Fixed Destroy my ship bug
+                            - Should now properly destroy myship
+                      - Restructured code
+                            - Functions are now sorted in a more logical fashion
+                      - Updated functions.py and lists_dictionaries.py

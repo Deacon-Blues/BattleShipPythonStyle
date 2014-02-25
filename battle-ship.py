@@ -48,12 +48,30 @@ myship_3 = []
 ship_1_damage = []
 ship_2_damage = []
 ship_3_damage = []
-#myship_1_damage = []
-#myship_2_damage = []
-#myship_3_damage = []
 # Holds all current possible hit targets
 ships = []
 myships = []
+
+
+# Clears  a given list and returns it
+def clear_lst(lst):
+    lst.clear()
+    return lst
+
+
+# Function that clears a number of lists and returns them
+def clear_lists():
+    clear_lst(ships)
+    clear_lst(ship_1)
+    clear_lst(ship_2)
+    clear_lst(ship_3)
+    clear_lst(ship_1_damage)
+    clear_lst(ship_2_damage)
+    clear_lst(ship_3_damage)
+    clear_lst(myships)
+    clear_lst(myship_1)
+    clear_lst(myship_2)
+    clear_lst(myship_3)
 
 
 # Function responsible for creating 8 lists of 8 O's
@@ -73,6 +91,15 @@ def fill_grid(some_board):
     fill_x(x)
     for row, i in zip(some_board, x):  # Used Zip function to loop through 2 separate lists
         row.insert(0, str(i))  # Insert the first number from the x list at the front
+
+
+def fill_boards():
+    clear_lst(myboard)  # Clear global myboard list
+    clear_lst(board)  # Clear global board list
+    fill_board(board)  # populates board list with appropriate number of O's
+    fill_grid(board)  # adds the row labels to board list
+    fill_board(myboard)  # populates myboard list with appropriate number of O's
+    fill_grid(myboard)  # adds row labels to myboard list
 
 
 # Function responsible for printing board list as a 8x8 grid
@@ -123,6 +150,167 @@ def hide_ship(ship):
         ship.append(starboard)  # Adds starboard coordinates to ship list
 
 
+def hide_ships(one, two, three):
+        hide_ship(one)  # Randomizes and checks coordinates for ship_1 list
+        hide_ship(two)  # Randomizes and checks coordinates for ship_2 list
+        hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
+
+
+def get_ship_origin(staging_ground):
+    running = True
+    while running:
+        print('Remember: The Ship will extend to the spaces directly above and below the ship origin.')
+        print('Watch out for the end of the board!!!')
+        ship_origin = input('Enter Ship origin: ')
+        column = column_number[ship_origin[0].upper()]
+        row = ship_origin[1]
+        row = int(row)
+        coord = [column, row]
+        if check_if_already_occupied(coord) is False:
+            board_index = column  # As a lot of this is not needed
+            board_list = row - 1  # Written like this to help understand what represented what
+            myboard[board_list][board_index] = '@'
+            staging_ground.append(coord)
+            running = False
+        else:
+            running = True
+
+
+def extend_ship_vertical(staging_ground):
+    port = []
+    starboard = []
+    staging_ground_clone = copy.deepcopy(staging_ground)
+    staging_ground_clone[0][1] += 1
+    port.append(staging_ground_clone[0][0])
+    port.append(staging_ground_clone[0][1])
+    staging_ground_clone[0][1] -= 2
+    starboard.append(staging_ground_clone[0][0])
+    starboard.append(staging_ground_clone[0][1])
+    staging_ground.append(port)
+    staging_ground.append(starboard)
+
+
+def extend_ship_horizontal(staging_ground):
+    port = []
+    starboard = []
+    staging_ground_clone = copy.deepcopy(staging_ground)
+    staging_ground_clone[0][0] += 1
+    port.append(staging_ground_clone[0][0])
+    port.append(staging_ground_clone[0][1])
+    staging_ground_clone[0][0] -= 2
+    starboard.append(staging_ground_clone[0][0])
+    starboard.append(staging_ground_clone[0][1])
+    staging_ground.append(port)
+    staging_ground.append(starboard)
+
+
+def hide_myships(ship):
+    main_staging_ground = []
+    get_ship_origin(main_staging_ground)
+    print('Would you like to place your ship [V]ertical or [H]orizontal: ')
+    v_or_h = input('Enter: V for Vertical or H for horizontal: ')
+    if v_or_h == 'V':
+        extend_ship_vertical(main_staging_ground)
+    elif v_or_h == 'H':
+        extend_ship_horizontal(main_staging_ground)
+    else:
+        print('Error101')
+    ship.append(main_staging_ground)
+    print('----------------------SHIP DEPLOYED-----------------------')
+    place_ship(main_staging_ground, myboard)
+    print_board()
+
+
+# Function that gathers user input and assigns it as elements in a list(named target)
+def get_target():
+        target = []  # Target list
+        running = True
+        while running:
+            coordinates = input('Where would you like to open your orphan factory?: ')
+            if check_if_cheat(coordinates) is False and len(coordinates) == 2:  # If input is not cheat code
+                if coordinates[0].upper() in columns and int(coordinates[1]) in rows:  # If column and row input is ok
+                    column = coordinates[0].upper()  # First character in coordinates string = column
+                    row = coordinates[1]  # Second character in coordinates string = row
+                    row = int(row)  # Sets row to int form
+                    target.append(column)  # Adds column to target list
+                    target.append(row)  # Add row to target list
+                    return target
+                else:  # Else if coordinates invalid
+                    print('Input should include a letter A-E and a number 1-8')  # Error message
+                    running = True  # Return to start of loop
+
+            # If not cheat code, but length of input is not equal to two
+            elif len(coordinates) != 2:
+                print('Input should be 2 characters!')  # Error Message
+                running = True  # Return to start of while loop
+            else:
+                running = True
+
+
+def get_enemy_target():
+    target = []
+    column = random.randrange(0, 8)
+    row = random.randrange(0, 8)
+    column = column_letter[column]
+    target.append(column)
+    target.append(row)
+    return target
+
+
+# Function responsible for checking if target(list) has already been tried
+def check_if_tried(target, some_board):
+    board_index = column_number[target[0].upper()]  # Board index(aka column) = 1st element's value:key in column_number
+    board_row = target[1] - 1  # Board row(aka list) = 2nd element in target list
+    if some_board[board_row][board_index] == "X" or board[board_row][board_index] == '$':
+        return True  # Return true because X means its already been tried
+    else:  # else
+        return False  # False because it has not been tried
+
+
+# Checks if column input is valid
+def valid_column(target):
+    if target[0].upper() in columns:
+        return True
+    else:
+        return False
+
+
+# Checks if row input is valid
+def valid_row(target):
+    if target[1] in rows:
+        return True
+    else:
+        return False
+
+
+# Checks if user inputs cheat code
+def check_if_cheat(coordinates):
+    if coordinates == 'fs':
+        print(ships)
+        return True
+    else:
+        return False
+
+
+def check_if_tried_enemy(target):
+    board_index = target[0]  # Board index(aka column) = 1st element's value:key in column_number
+    board_row = target[1]    # Board row(aka list) = 2nd element in target list
+    if (myboard[board_row][board_index] == "X" or myboard[board_row][board_index] == '$'or
+            myboard[board_row][board_index] == '*'):
+        return True  # Return true because X means its already been tried
+    else:  # else
+        return False  # False because it has not been tried
+
+
+def check_if_already_occupied(target):
+    board_index = target[0]  # Board index(aka column) = 1st element's value:key in column_number
+    board_row = target[1]    # Board row(aka list) = 2nd element in target list
+    if myboard[board_row][board_index] == "@":
+        return True  # Return true because X means its already been tried
+    else:  # else
+        return False  # False because it has not been tried
+
+
 # Function responsible for replacing 'O's with 'X's upon missing
 # Takes list as input
 def miss(target, some_board):
@@ -168,94 +356,6 @@ def enemy_miss(target, some_board):
     some_board[board_list][board_index] = "X"  # In relation to the board
 
 
-# Function responsible for checking if target(list) has already been tried
-def check_if_tried(target, some_board):
-    board_index = column_number[target[0].upper()]  # Board index(aka column) = 1st element's value:key in column_number
-    board_row = target[1] - 1  # Board row(aka list) = 2nd element in target list
-    if some_board[board_row][board_index] == "X" or board[board_row][board_index] == '$':
-        return True  # Return true because X means its already been tried
-    else:  # else
-        return False  # False because it has not been tried
-
-
-def check_if_tried_enemy(target):
-    board_index = target[0]  # Board index(aka column) = 1st element's value:key in column_number
-    board_row = target[1]    # Board row(aka list) = 2nd element in target list
-    if (myboard[board_row][board_index] == "X" or myboard[board_row][board_index] == '$'or
-            myboard[board_row][board_index] == '*'):
-        return True  # Return true because X means its already been tried
-    else:  # else
-        return False  # False because it has not been tried
-
-
-# Function that gathers user input and assigns it as elements in a list(named target)
-def get_target():
-        target = []  # Target list
-        running = True
-        while running:
-            coordinates = input('Where would you like to open your orphan factory?: ')
-            if check_if_cheat(coordinates) is False and len(coordinates) == 2:  # If input is not cheat code
-                if coordinates[0].upper() in columns and int(coordinates[1]) in rows:  # If column and row input is ok
-                    column = coordinates[0].upper()  # First character in coordinates string = column
-                    row = coordinates[1]  # Second character in coordinates string = row
-                    row = int(row)  # Sets row to int form
-                    target.append(column)  # Adds column to target list
-                    target.append(row)  # Add row to target list
-                    return target
-                else:  # Else if coordinates invalid
-                    print('Input should include a letter A-E and a number 1-8')  # Error message
-                    running = True  # Return to start of loop
-
-            # If not cheat code, but length of input is not equal to two
-            elif len(coordinates) != 2:
-                print('Input should be 2 characters!')  # Error Message
-                running = True  # Return to start of while loop
-            else:
-                running = True
-
-
-def get_enemy_target():
-    target = []
-    column = random.randrange(0, 8)
-    row = random.randrange(0, 8)
-    column = column_letter[column]
-    target.append(column)
-    target.append(row)
-    return target
-
-
-# Checks if column input is valid
-def valid_column(target):
-    if target[0].upper() in columns:
-        return True
-    else:
-        return False
-
-
-# Checks if row input is valid
-def valid_row(target):
-    if target[1] in rows:
-        return True
-    else:
-        return False
-
-
-# Checks if user inputs cheat code
-def check_if_cheat(coordinates):
-    if coordinates == 'fs':
-        print(ships)
-        return True
-    else:
-        return False
-
-
-# Function that gathers input on rather user wishes to continue playing
-def play_again():
-    print('Would You like to play again?')
-    go_again = input('Type \'EXIT\' to quit, or press ENTER to play again:  ')
-    return go_again
-
-
 # Function that changes the board to reflect the destruction of a ship
 # Changes all hit($) calls with destroyed(*) call
 def destroy_ship(ship, some_board):
@@ -271,7 +371,7 @@ def destroy_ship(ship, some_board):
 def destroy_my_ship(ship):
     for section in ship:  # for coordinate(list) in list of coordinates
         for coord in section:
-            column = column_number[coord[0].upper()]  # Column = 1st element's value:key in column_number Dictionary
+            column = coord[0]  # Column = 1st element's value:key in column_number Dictionary
             row = (coord[1] - 1)  # Row = Second element of target lst - 1( -1 makes it work correctly, not sure why)
             missed_target = [column, row]  # Consider slimming this function down
             board_index = missed_target[0]  # As a lot of this is not needed
@@ -358,6 +458,7 @@ def enemy_turn(myships_clone, a, b, c):
             target[0] = column_letter[target[0]]
             target[1] += 1
             print(target)
+            target[0] = column_number[target[0]]
             if myboard[board_list][board_index] == "@":  # In relation to the boar
                 myboard[board_list][board_index] = "$"
                 print('Enemy Hit!')
@@ -392,132 +493,11 @@ def enemy_turn(myships_clone, a, b, c):
             getting_unused_target = True
 
 
-# Clears  a given list and returns it
-def clear_lst(lst):
-    lst.clear()
-    return lst
-
-
-# Function that clears a number of lists and returns them
-def clear_lists():
-    clear_lst(ships)
-    clear_lst(ship_1)
-    clear_lst(ship_2)
-    clear_lst(ship_3)
-    clear_lst(ship_1_damage)
-    clear_lst(ship_2_damage)
-    clear_lst(ship_3_damage)
-    clear_lst(myships)
-    clear_lst(myship_1)
-    clear_lst(myship_2)
-    clear_lst(myship_3)
-    #clear_lst(myship_1_damage)
-    #clear_lst(myship_2_damage)
-    #clear_lst(myship_3_damage)
-
-
-def hide_ships(one, two, three):
-        hide_ship(one)  # Randomizes and checks coordinates for ship_1 list
-        hide_ship(two)  # Randomizes and checks coordinates for ship_2 list
-        hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
-
-
-def check_if_already_occupied(target):
-    board_index = target[0]  # Board index(aka column) = 1st element's value:key in column_number
-    board_row = target[1]    # Board row(aka list) = 2nd element in target list
-    if myboard[board_row][board_index] == "@":
-        return True  # Return true because X means its already been tried
-    else:  # else
-        return False  # False because it has not been tried
-
-
-def get_ship_origin(staging_ground):
-    running = True
-    while running:
-        print('Remember: The Ship will extend to the spaces directly above and below the ship origin.')
-        print('Watch out for the end of the board!!!')
-        ship_origin = input('Enter Ship origin: ')
-        column = column_number[ship_origin[0].upper()]
-        row = ship_origin[1]
-        row = int(row)
-        coord = [column, row]
-        if check_if_already_occupied(coord) is False:
-            board_index = column  # As a lot of this is not needed
-            board_list = row - 1  # Written like this to help understand what represented what
-            myboard[board_list][board_index] = '@'
-            staging_ground.append(coord)
-            running = False
-        else:
-            running = True
-
-
-def extend_ship_vertical(staging_ground):
-    port = []
-    starboard = []
-    staging_ground_clone = copy.deepcopy(staging_ground)
-    staging_ground_clone[0][1] += 1
-    port.append(staging_ground_clone[0][0])
-    port.append(staging_ground_clone[0][1])
-    staging_ground_clone[0][1] -= 2
-    starboard.append(staging_ground_clone[0][0])
-    starboard.append(staging_ground_clone[0][1])
-    staging_ground.append(port)
-    staging_ground.append(starboard)
-
-
-def extend_ship_horizontal(staging_ground):
-    port = []
-    starboard = []
-    staging_ground_clone = copy.deepcopy(staging_ground)
-    staging_ground_clone[0][0] += 1
-    port.append(staging_ground_clone[0][0])
-    port.append(staging_ground_clone[0][1])
-    staging_ground_clone[0][0] -= 2
-    starboard.append(staging_ground_clone[0][0])
-    starboard.append(staging_ground_clone[0][1])
-    staging_ground.append(port)
-    staging_ground.append(starboard)
-
-
-def hide_myships(ship):
-    main_staging_ground = []
-    get_ship_origin(main_staging_ground)
-    print('Would you like to place your ship [V]ertical or [H]orizontal: ')
-    v_or_h = input('Enter: V for Vertical or H for horizontal: ')
-    if v_or_h == 'V':
-        extend_ship_vertical(main_staging_ground)
-    elif v_or_h == 'H':
-        extend_ship_horizontal(main_staging_ground)
-    else:
-        print('Error101')
-    ship.append(main_staging_ground)
-    print('----------------------SHIP DEPLOYED-----------------------')
-    place_ship(main_staging_ground, myboard)
-    print_board()
-
-
-def fill_boards():
-    clear_lst(myboard)  # Clear global myboard list
-    clear_lst(board)  # Clear global board list
-    fill_board(board)  # populates board list with appropriate number of O's
-    fill_grid(board)  # adds the row labels to board list
-    fill_board(myboard)  # populates myboard list with appropriate number of O's
-    fill_grid(myboard)  # adds row labels to myboard list
-
-
-def fill_ships():
-    ship_1_damage.extend(ship_1)  # Creates copies
-    ship_2_damage.extend(ship_2)  # of all three ships
-    ship_3_damage.extend(ship_3)  # to be referenced by the destroy_ship function
-    ships.append(ship_1)  # Adds all three ships
-    ships.append(ship_2)  # To a single list(ships)
-    ships.append(ship_3)  # To be used to keep track of current ships in play
-    #myship_1_damage.extend(myship_1)  # Creates copies
-    #myship_2_damage.extend(myship_2)  # of all three ships
-    #myship_3_damage.extend(myship_3)  # to be referenced by the destroy_ship function
-    myships.append(myship_1)
-    myships.append(myship_2)
-    myships.append(myship_3)
+# Function that gathers input on rather user wishes to continue playing
+def play_again():
+    print('Would You like to play again?')
+    go_again = input('Type \'EXIT\' to quit, or press ENTER to play again:  ')
+    return go_again
 
 
 def main():
@@ -569,7 +549,7 @@ def main():
             time.sleep(2)
             player_turn(player_target)
             print_board()
-            #time.sleep(2)
+            time.sleep(2)
             print('Enemy is charging his lazors!')
             time.sleep(2)
             print('ENEMY IS FIRING HIS LAZORS!!!!!!')

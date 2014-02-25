@@ -105,8 +105,10 @@ def fill_boards():
 # Function responsible for printing board list as a 8x8 grid
 def print_board():
     print("  ".join(y), '\t', "  ".join(y))
+    print()
     for row, row_again in zip(board, myboard):
         print("  ".join(row), '\t', "  ".join(row_again))
+        print()
 
 
 def random_column_key():

@@ -154,3 +154,6 @@ Thirty-Seventh Commit - Fixed Destroy my ship bug
                       - Restructured code
                             - Functions are now sorted in a more logical fashion
                       - Updated functions.py and lists_dictionaries.py
+
+Thirty-Eighth Commit - Added spacing
+                            - Print_board function now prints blank lines to create spacing and aid readability

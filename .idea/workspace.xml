@@ -4,8 +4,6 @@
     <list default="true" id="46ad22d2-c141-4158-ae8d-bf7c67ce92ed" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commit Notes" afterPath="$PROJECT_DIR$/Commit Notes" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/battle-ship.py" afterPath="$PROJECT_DIR$/battle-ship.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions.py" afterPath="$PROJECT_DIR$/functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lists_dictionaries.py" afterPath="$PROJECT_DIR$/lists_dictionaries.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BattleShip.iws" />
@@ -50,7 +48,7 @@
       <file leaf-file-name="battle-ship.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/battle-ship.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="569" column="13" selection-start="24304" selection-end="24304" vertical-scroll-proportion="-16.76" vertical-offset="9254" max-vertical-offset="9809">
+            <state line="107" column="10" selection-start="2793" selection-end="2793" vertical-scroll-proportion="-13.76" vertical-offset="1475" max-vertical-offset="9843">
               <folding>
                 <element signature="e#25#38#0" expanded="true" />
               </folding>
@@ -70,7 +68,7 @@
       <file leaf-file-name="Commit Notes" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Commit Notes">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="155" column="70" selection-start="7702" selection-end="7702" vertical-scroll-proportion="0.8071834" vertical-offset="2208" max-vertical-offset="2737">
+            <state line="158" column="111" selection-start="7852" selection-end="7852" vertical-scroll-proportion="0.76975167" vertical-offset="2345" max-vertical-offset="2788">
               <folding />
             </state>
           </provider>
@@ -104,8 +102,8 @@
         <option value="$PROJECT_DIR$/test-file.py" />
         <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/lists_dictionaries.py" />
-        <option value="$PROJECT_DIR$/Commit Notes" />
         <option value="$PROJECT_DIR$/battle-ship.py" />
+        <option value="$PROJECT_DIR$/Commit Notes" />
       </list>
     </option>
   </component>
@@ -557,7 +555,11 @@
       <created>1393284118906</created>
       <updated>1393284118907</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="Thirty-Seventh Commit">
+      <created>1393296157985</created>
+      <updated>1393296157985</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -569,8 +571,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14427084" sideWeight="0.60064936" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39935064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14427084" sideWeight="0.50757575" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.49242425" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33549783" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33549783" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -592,7 +594,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Fifth Commit" />
     <MESSAGE value="Sixth Commit" />
     <MESSAGE value="Tenth Commit" />
     <MESSAGE value="Eleventh Commit" />
@@ -617,7 +618,8 @@
     <MESSAGE value="Thirty-Fourth Commit" />
     <MESSAGE value="Thirty-Fifth Commit" />
     <MESSAGE value="Thirty-Sixth Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Thirty-Sixth Commit" />
+    <MESSAGE value="Thirty-Seventh Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Thirty-Seventh Commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -709,7 +711,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="561" column="0" selection-start="23760" selection-end="23760" vertical-scroll-proportion="0.0" vertical-offset="9361" max-vertical-offset="9911">
           <folding>
-            <element signature="e#25#38#0" expanded="true" />
+            <element signature="e#25#38#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -730,7 +732,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/battle-ship.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="569" column="13" selection-start="24304" selection-end="24304" vertical-scroll-proportion="-16.76" vertical-offset="9254" max-vertical-offset="9809">
+        <state line="107" column="10" selection-start="2793" selection-end="2793" vertical-scroll-proportion="-13.76" vertical-offset="1475" max-vertical-offset="9843">
           <folding>
             <element signature="e#25#38#0" expanded="true" />
           </folding>
@@ -739,7 +741,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Commit Notes">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="155" column="70" selection-start="7702" selection-end="7702" vertical-scroll-proportion="0.8071834" vertical-offset="2208" max-vertical-offset="2737">
+        <state line="158" column="111" selection-start="7852" selection-end="7852" vertical-scroll-proportion="0.76975167" vertical-offset="2345" max-vertical-offset="2788">
           <folding />
         </state>
       </provider>

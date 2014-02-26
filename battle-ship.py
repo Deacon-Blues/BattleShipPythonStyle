@@ -104,11 +104,11 @@ def fill_boards():
 
 # Function responsible for printing board list as a 8x8 grid
 def print_board():
-    print("  ".join(y), '\t', "  ".join(y))
-    print()
+    print(" | ".join(y), '\t', " | ".join(y))
+    print('---------------------------------', '\t', '----------------------------------')
     for row, row_again in zip(board, myboard):
-        print("  ".join(row), '\t', "  ".join(row_again))
-        print()
+        print(" | ".join(row), '\t', " | ".join(row_again))
+        print('---------------------------------', '\t', '----------------------------------')
 
 
 def random_column_key():
@@ -209,16 +209,21 @@ def extend_ship_horizontal(staging_ground):
 def hide_myships(ship):
     main_staging_ground = []
     get_ship_origin(main_staging_ground)
-    print('Would you like to place your ship [V]ertical or [H]orizontal: ')
-    v_or_h = input('Enter: V for Vertical or H for horizontal: ')
-    if v_or_h == 'V':
-        extend_ship_vertical(main_staging_ground)
-    elif v_or_h == 'H':
-        extend_ship_horizontal(main_staging_ground)
-    else:
-        print('Error101')
+    choosing_v_h = True
+    while choosing_v_h:
+        print('Would you like to place your ship [V]ertical or [H]orizontal: ')
+        v_or_h = input('Enter: V for Vertical or H for horizontal: ')
+        if v_or_h.upper() == 'V':
+            extend_ship_vertical(main_staging_ground)
+            choosing_v_h = False
+        elif v_or_h.upper() == 'H':
+            extend_ship_horizontal(main_staging_ground)
+            choosing_v_h = False
+        else:
+            print('Input Error')
+            choosing_v_h = True
     ship.append(main_staging_ground)
-    print('----------------------SHIP DEPLOYED-----------------------')
+    print('-----------------------------SHIP DEPLOYED------------------------------')
     place_ship(main_staging_ground, myboard)
     print_board()
 

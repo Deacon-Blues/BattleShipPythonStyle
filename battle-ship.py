@@ -50,9 +50,9 @@ ship_2 = []
 ship_3 = []
 
 # Lists used to store player ship coordinates
-myship_1 = []
-myship_2 = []
-myship_3 = []
+defiant = []
+voyager = []
+enterprise = []
 
 # Lists that mirror enemy ship coordinates lists. Used to 'destroy' enemy ships
 # The coordinates in the lists are fed to the destroy_ship function
@@ -86,9 +86,9 @@ def clear_lists():
     clear_lst(ship_2_damage)
     clear_lst(ship_3_damage)
     clear_lst(myships)
-    clear_lst(myship_1)
-    clear_lst(myship_2)
-    clear_lst(myship_3)
+    clear_lst(defiant)
+    clear_lst(voyager)
+    clear_lst(enterprise)
     clear_lst(next_targets)
 
 
@@ -278,13 +278,13 @@ def hide_myships(ship):
                 else:
                     print('Input Error')
                     choosing_v_h = True
-        if myboard[main_staging_ground[0][1 - 1]][main_staging_ground[0][0]] == '@':
+        if myboard[main_staging_ground[0][1] - 1][main_staging_ground[0][0]] == '@':
             print('If you deploy there your ships will collide!')
             getting_ship_origin = True
-        elif myboard[main_staging_ground[1][1 - 1]][main_staging_ground[1][0]] == '@':
+        elif myboard[main_staging_ground[1][1] - 1][main_staging_ground[1][0]] == '@':
             print('If you deploy there your ships will collide!')
             getting_ship_origin = True
-        elif myboard[main_staging_ground[2][1 - 1]][main_staging_ground[2][0]] == '@':
+        elif myboard[main_staging_ground[2][1] - 1][main_staging_ground[2][0]] == '@':
             print('If you deploy there your ships will collide!')
             getting_ship_origin = True
         else:
@@ -727,21 +727,21 @@ def main():
         while filling is False:  # If a ship coordinate is pegged asa repeated
             main()  # Program restarts and tries again
         print_board()
-        hide_myships(myship_1)
-        hide_myships(myship_2)
-        hide_myships(myship_3)
+        hide_myships(defiant)
+        hide_myships(voyager)
+        hide_myships(enterprise)
         ship_1_damage.extend(ship_1)  # Creates copies
         ship_2_damage.extend(ship_2)  # of all three ships
         ship_3_damage.extend(ship_3)  # to be referenced by the destroy_ship function
         ships.append(ship_1)  # Adds all three ships
         ships.append(ship_2)  # To a single list(ships)
         ships.append(ship_3)  # To be used to keep track of current ships in play
-        myship_1_damage = copy.deepcopy(myship_1)  # to be referenced by the destroy_ship function
-        myship_2_damage = copy.deepcopy(myship_2)
-        myship_3_damage = copy.deepcopy(myship_3)
-        myships.append(myship_1)
-        myships.append(myship_2)
-        myships.append(myship_3)
+        myship_1_damage = copy.deepcopy(defiant)  # to be referenced by the destroy_ship function
+        myship_2_damage = copy.deepcopy(voyager)
+        myship_3_damage = copy.deepcopy(enterprise)
+        myships.append(defiant)
+        myships.append(voyager)
+        myships.append(enterprise)
         playing = True
         timer = 5
         print('Game Will be begin in....')

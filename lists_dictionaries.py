@@ -48,3 +48,5 @@ ship_3_damage = []
 # Holds all current possible hit targets
 ships = []
 myships = []
+
+next_targets = []

@@ -159,3 +159,10 @@ Thirty-Eighth Commit - Added spacing
                             - Print_board function now prints blank lines to create spacing and aid readability
 
 Thirty-Ninth Commit - Minor Spacing changes
+
+Fortieth Commit - Added AI targeting feature
+                        - Enemy AI will now proactively check for ships, near the previous hit coord.
+                        - Enemy AI will Continue to look for a ship up to and until it's destroyed
+                - Added smart deployment feature
+                        - Ships can no longer be deployed off the board
+                        - Ship origins placed on the edge of the board will now smart expand

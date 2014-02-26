@@ -29,37 +29,54 @@ myboard = []
 
 x = []  # List of row numbers, inserted into the front of each row later on
 
-columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # List of all Column letter values
 
-rows = [1, 2, 3, 4, 5, 6, 7, 8]
+rows = [1, 2, 3, 4, 5, 6, 7, 8]  # List of Row values, also used to verify input
 
-y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
+y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # List used to print column values in board. Space is for formatting
 
-# First item is column second item is row
+# |==================================================================|
+# |=================ATTENTION====VERY IMPORTANT======================|
+# |=====FIRST ITEM IN LIST IS COLUMN SECOND ITEM IN LIST IS ROW======|
+# |=========TRUE FOR EVERY LIST CONTAINING SHIP COORDINATES==========|
+# |==================================================================|
+# |==================================================================|
+
 # Lists that contain ship coordinates
+
+# Lists used to store enemy ship coordinates
 ship_1 = []
 ship_2 = []
 ship_3 = []
 
+# Lists used to store player ship coordinates
 myship_1 = []
 myship_2 = []
 myship_3 = []
-# Lists that are used to hold ship coordinates and later, change the board
+
+# Lists that mirror enemy ship coordinates lists. Used to 'destroy' enemy ships
+# The coordinates in the lists are fed to the destroy_ship function
+# The destroy_ship function then changes the corresponding coordinates to '*'
 ship_1_damage = []
 ship_2_damage = []
 ship_3_damage = []
-# Holds all current possible hit targets
+
+# Lists that hold all ship coordinates
+
+# Enemy ship Coordinates
 ships = []
+
+# Player Ship coordinates
 myships = []
 
 
-# Clears  a given list and returns it
+# Clears a given list and returns it
 def clear_lst(lst):
     lst.clear()
     return lst
 
 
-# Function that clears a number of lists and returns them
+# Runs clear_list function on all(or at least all currently known) lists that will not break the program.
 def clear_lists():
     clear_lst(ships)
     clear_lst(ship_1)
@@ -75,7 +92,8 @@ def clear_lists():
     clear_lst(next_targets)
 
 
-# Function responsible for creating 8 lists of 8 O's
+# Creates a list of 8 lists each consisting of 8 'O's
+# Takes a given board as input. Used to create player and enemy board
 def fill_board(some_board):
     for i in range(0, 8):
         some_board.append(['O'] * 8)  # Adds 8 lists of 8 'O's to board list
@@ -87,13 +105,16 @@ def fill_x(lst):
         lst.append(str(number))
 
 
-# Function responsible for inserting 1-8 at the front of each list
+# Inserts a number 1-8 to the front of list 0-7 in a given board.
+# Gives the game board its row labels
 def fill_grid(some_board):
     fill_x(x)
     for row, i in zip(some_board, x):  # Used Zip function to loop through 2 separate lists
         row.insert(0, str(i))  # Insert the first number from the x list at the front
 
 
+# Clears both boards(The list of lists)
+# Runs the fill_board and fill_grid function on both boards
 def fill_boards():
     clear_lst(myboard)  # Clear global myboard list
     clear_lst(board)  # Clear global board list
@@ -103,7 +124,10 @@ def fill_boards():
     fill_grid(myboard)  # adds row labels to myboard list
 
 
-# Function responsible for printing board list as a 8x8 grid
+# Prints two game boards in a 8 x 8 grid
+# Separates the game boards by a tab(4 spaces)
+# Adds the column tags to the top of the board
+# Joins each list item by a vertical dash( | )
 def print_board():
     print(" | ".join(y), '\t', " | ".join(y))
     print('---------------------------------', '\t', '----------------------------------')
@@ -112,11 +136,8 @@ def print_board():
         print('---------------------------------', '\t', '----------------------------------')
 
 
-def random_column_key():
-    return random.randrange(2, 8)
-
-
 # Converts column values to their int counterparts
+# Uses dictionaries to convert between the two
 def convert_column(ship_origin, port, starboard):
     ship_origin[0] = column_letter[ship_origin[0]]
     port[0] = column_letter[port[0]]
@@ -127,27 +148,27 @@ def convert_column(ship_origin, port, starboard):
 def hide_ship(ship):
     port = []  # Empty list, will represent ship origin coordinates + 1
     starboard = []  # Empty list, will represent ship origin coordinates - 1
-    ship_origin = []
+    ship_origin = []  # Ship starting location
     direction = random.randrange(1, 3)
     if direction == 1:
-        ship_origin.append(random_column_key())  # sets first item in ship to column
-        ship_origin.append(random.randrange(2, 8))  # sets second item in ship to row
+        ship_origin.append(random.randrange(2, 8))  # sets first item in ship to random number 2-7
+        ship_origin.append(random.randrange(2, 8))  # sets second item in ship to random number 2-7
         port.append(ship_origin[0])  # Adds origin column to port list
         port.append(ship_origin[1] + 1)  # Adds origin row + 1 to port list
         starboard.append(ship_origin[0])  # Adds origin column to starboard list
         starboard.append(ship_origin[1] - 1)  # Adds origin row - 1 to starboard list
-        convert_column(ship_origin, port, starboard)
+        convert_column(ship_origin, port, starboard)  # Converts the column(first) value of each list to its Letter
         ship.append(ship_origin)  # Adds origin coordinates to ship list
         ship.append(port)  # Adds port coordinates to ship list
         ship.append(starboard)  # Adds starboard coordinates to ship list
     else:
-        ship_origin.append(random_column_key())  # sets first item in ship to column
-        ship_origin.append(random.randrange(2, 8))  # sets second item in ship to row
+        ship_origin.append(random.randrange(2, 8))  # sets first item in ship to random number 2-7
+        ship_origin.append(random.randrange(2, 8))  # sets first item in ship to random number 2-7
         port.append(ship_origin[0] + 1)  # Adds origin column + 1 to port list
         port.append(ship_origin[1])  # Adds origin row to port list
         starboard.append(ship_origin[0] - 1)  # Adds origin column - 1 to starboard list
         starboard.append(ship_origin[1])  # Adds origin row to starboard list
-        convert_column(ship_origin, port, starboard)
+        convert_column(ship_origin, port, starboard)  # Converts the column(first) value of each list to its Letter
         ship.append(ship_origin)  # Adds origin coordinates to ship list
         ship.append(port)  # Adds port coordinates to ship list
         ship.append(starboard)  # Adds starboard coordinates to ship list
@@ -159,11 +180,12 @@ def hide_ships(one, two, three):
         hide_ship(three)  # Randomizes and checks coordinates for ship_3 list
 
 
+# Takes User inputted coordinate runs various checks
+# And If everything is in order convert the coord into numerical values in relation to the board
+# Then add new set of coordinates to a given list(staging_ground) and will later be used to represent the ship_origin
 def get_ship_origin(staging_ground):
     running = True
     while running:
-        print('Remember: The Ship will extend to the spaces directly above and below the ship origin.')
-        print('Watch out for the end of the board!!!')
         ship_origin = input('Enter Ship origin: ')
         column = column_number[ship_origin[0].upper()]
         row = ship_origin[1]
@@ -180,9 +202,9 @@ def get_ship_origin(staging_ground):
         else:
             if coord[0] in rows and coord[1] in rows:
                 if check_if_already_occupied(coord) is False:
-                    board_index = column  # As a lot of this is not needed
-                    board_list = row - 1  # Written like this to help understand what represented what
-                    myboard[board_list][board_index] = '@'
+                    #board_index = column  # As a lot of this is not needed
+                    #board_list = row - 1  # Written like this to help understand what represented what
+                    #myboard[board_list][board_index] = '@'
                     staging_ground.append(coord)
                     running = False
                 else:
@@ -192,55 +214,81 @@ def get_ship_origin(staging_ground):
                 running = True
 
 
+# Extends ship one space to the north and one to the south of ship_origin
 def extend_ship_vertical(staging_ground):
     port = []
     starboard = []
     staging_ground_clone = copy.deepcopy(staging_ground)
-    staging_ground_clone[0][1] += 1
-    port.append(staging_ground_clone[0][0])
-    port.append(staging_ground_clone[0][1])
+    staging_ground_clone[0][1] += 1  # Adds one to the row value of ship_origin / Main_staging_ground
+    port.append(staging_ground_clone[0][0])  # Adds new staging ground values
+    port.append(staging_ground_clone[0][1])  # To port, to represent going down 1 row
+    # Subtracts 2 from row value of ship_origin / staging_ground
+    # This restores its original value - 1
     staging_ground_clone[0][1] -= 2
-    starboard.append(staging_ground_clone[0][0])
-    starboard.append(staging_ground_clone[0][1])
-    staging_ground.append(port)
-    staging_ground.append(starboard)
+    starboard.append(staging_ground_clone[0][0])  # Adds new staging ground value
+    starboard.append(staging_ground_clone[0][1])  # To starboard, to represent going up 1 row
+    staging_ground.append(port)  # Adds new port and starboard lists(containing extended coordinates of ship origin)
+    staging_ground.append(starboard)  # To the original list of lists containing the ship_origin coordinates
 
 
+# Extends ship one space to the east and one space to the west
 def extend_ship_horizontal(staging_ground):
     port = []
     starboard = []
     staging_ground_clone = copy.deepcopy(staging_ground)
-    staging_ground_clone[0][0] += 1
-    port.append(staging_ground_clone[0][0])
-    port.append(staging_ground_clone[0][1])
+    staging_ground_clone[0][0] += 1  # Adds one to the column value of ship_origin / Main_staging_ground
+    port.append(staging_ground_clone[0][0])   # Adds new staging ground values
+    port.append(staging_ground_clone[0][1])  # To starboard, to represent going to the right one column
+    # Subtracts 2 from column value of ship_origin / staging_ground
+    # This restores its original value - 1
     staging_ground_clone[0][0] -= 2
-    starboard.append(staging_ground_clone[0][0])
-    starboard.append(staging_ground_clone[0][1])
-    staging_ground.append(port)
-    staging_ground.append(starboard)
+    starboard.append(staging_ground_clone[0][0])  # Adds new staging ground value
+    starboard.append(staging_ground_clone[0][1])  # To Starboard to represent going left one column
+    staging_ground.append(port)  # Adds new port and starboard lists(containing extended coordinates of ship origin)
+    staging_ground.append(starboard)  # To the original list of lists containing the ship_origin coordinates
 
 
+# Uses get_ship_origin function to generate an unoccupied ship_origin coordinate
+# Then uses conditional statements to determine if there is only one possible direction of expansion
+# If so, expand ship that direction. If not, Let user choose direction to expand ship
+# Adds Extended ship to a given ship list(myship_1(2)(3))
+# Uses main_staging_ground coordinates to place ship on the board(Change all applicable coordinates to '*'s
+# Prints the, now modified, board
 def hide_myships(ship):
-    main_staging_ground = []
-    get_ship_origin(main_staging_ground)
-    if main_staging_ground[0][0] == 1 or main_staging_ground[0][0] == 8:
-        extend_ship_vertical(main_staging_ground)
-    elif main_staging_ground[0][1] == 1 or main_staging_ground[0][1] == 8:
-        extend_ship_horizontal(main_staging_ground)
-    else:
-        choosing_v_h = True
-        while choosing_v_h:
-            print('Would you like to place your ship [V]ertical or [H]orizontal: ')
-            v_or_h = input('Enter: V for Vertical or H for horizontal: ')
-            if v_or_h.upper() == 'V':
-                extend_ship_vertical(main_staging_ground)
-                choosing_v_h = False
-            elif v_or_h.upper() == 'H':
-                extend_ship_horizontal(main_staging_ground)
-                choosing_v_h = False
-            else:
-                print('Input Error')
-                choosing_v_h = True
+    global main_staging_ground
+    getting_ship_origin = True
+    while getting_ship_origin:
+        main_staging_ground = []
+        get_ship_origin(main_staging_ground)
+        if main_staging_ground[0][0] == 1 or main_staging_ground[0][0] == 8:
+            extend_ship_vertical(main_staging_ground)
+        elif main_staging_ground[0][1] == 1 or main_staging_ground[0][1] == 8:
+            extend_ship_horizontal(main_staging_ground)
+        else:
+            choosing_v_h = True
+            while choosing_v_h:
+                print('Would you like to place your ship [V]ertical or [H]orizontal: ')
+                v_or_h = input('Enter: V for Vertical or H for horizontal: ')
+                if v_or_h.upper() == 'V':
+                    extend_ship_vertical(main_staging_ground)
+                    choosing_v_h = False
+                elif v_or_h.upper() == 'H':
+                    extend_ship_horizontal(main_staging_ground)
+                    choosing_v_h = False
+                else:
+                    print('Input Error')
+                    choosing_v_h = True
+        if myboard[main_staging_ground[0][1 - 1]][main_staging_ground[0][0]] == '@':
+            print('If you deploy there your ships will collide!')
+            getting_ship_origin = True
+        elif myboard[main_staging_ground[1][1 - 1]][main_staging_ground[1][0]] == '@':
+            print('If you deploy there your ships will collide!')
+            getting_ship_origin = True
+        elif myboard[main_staging_ground[2][1 - 1]][main_staging_ground[2][0]] == '@':
+            print('If you deploy there your ships will collide!')
+            getting_ship_origin = True
+        else:
+            getting_ship_origin = False
     ship.append(main_staging_ground)
     print('-----------------------------SHIP DEPLOYED------------------------------')
     place_ship(main_staging_ground, myboard)
@@ -273,6 +321,10 @@ def get_target():
                 running = True
 
 
+# Gets enemy target coordinate
+# By random rolling 0-7 twice
+# Makes one column and the other row
+# Adds two values to target list and returns target list
 def get_enemy_target():
     target = []
     column = random.randrange(0, 8)

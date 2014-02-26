@@ -171,3 +171,10 @@ Forty-First Commit - Fixed Ship destruction bug
                         - Lists were not correctly keeping track of which ship was in which position in what list
                                 - Caused ships to not be destroyed if not destroyed in a specific order
                                 - Ships should not stay put within lists
+
+Forty-Second Commit - Added to smart ship deployment feature
+                            - Ship can no longer be over lapped
+                            - With this final change smart ship deployment should not allot the player to place a ship
+                                at an invalid coordinate
+                    - Added comments to various blocks of code
+                            - Source code is currently ~1/3 commented

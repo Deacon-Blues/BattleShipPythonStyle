@@ -166,3 +166,8 @@ Fortieth Commit - Added AI targeting feature
                 - Added smart deployment feature
                         - Ships can no longer be deployed off the board
                         - Ship origins placed on the edge of the board will now smart expand
+
+Forty-First Commit - Fixed Ship destruction bug
+                        - Lists were not correctly keeping track of which ship was in which position in what list
+                                - Caused ships to not be destroyed if not destroyed in a specific order
+                                - Ships should not stay put within lists

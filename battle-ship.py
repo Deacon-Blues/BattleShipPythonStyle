@@ -52,8 +52,6 @@ ship_3_damage = []
 ships = []
 myships = []
 
-next_targets = []
-
 
 # Clears  a given list and returns it
 def clear_lst(lst):
@@ -74,6 +72,7 @@ def clear_lists():
     clear_lst(myship_1)
     clear_lst(myship_2)
     clear_lst(myship_3)
+    clear_lst(next_targets)
 
 
 # Function responsible for creating 8 lists of 8 O's
@@ -178,7 +177,6 @@ def get_ship_origin(staging_ground):
         if coord == [1, 1] or coord == [1, 8] or coord == [8, 8] or coord == [8, 1]:
             print('You have boxed yourself into a corner. There is no room to expand your ship')
             running = True
-            return running
         else:
             if coord[0] in rows and coord[1] in rows:
                 if check_if_already_occupied(coord) is False:
@@ -467,6 +465,8 @@ def player_turn(target):
     else:
         print('Error')
 
+next_targets = []
+
 
 def get_next_targets(some_target):
     if some_target[0] == 1:
@@ -533,36 +533,7 @@ def get_next_targets(some_target):
 
 
 def enemy_turn(myships_clone, a, b, c):
-    if len(next_targets) < 1:
-        getting_unused_target = True
-        while getting_unused_target:
-            enemy_target = []
-            column = random.randrange(1, 9)
-            row = random.randrange(0, 8)
-            enemy_target.append(column)
-            enemy_target.append(row)
-            if check_if_tried_enemy(enemy_target) is False:
-                getting_unused_target = False
-                column = enemy_target[0]
-                row = enemy_target[1]  # Row = Second element of target lst - 1( -1 makes it work correctly
-                target = [column, row]  # Consider slimming this function down
-                last_target = [column, row]
-                board_index = target[0]  # As a lot of this is not needed
-                board_list = target[1]  # Written like this to help understand what represented what
-                target[0] = column_letter[target[0]]
-                target[1] += 1
-                print(target)
-                target[0] = column_number[target[0]]
-                if myboard[board_list][board_index] == "@":  # In relation to the boar
-                    myboard[board_list][board_index] = "$"
-                    print('Enemy Hit!')
-                    get_next_targets(last_target)
-                else:  # Else
-                    enemy_miss(enemy_target, myboard)  # Run miss function on target list
-                    print('Enemy Miss!')
-            else:
-                getting_unused_target = True
-    else:
+    if len(next_targets) >= 1:
         getting_target = True
         while getting_target:
             enemy_target = next_targets.pop()
@@ -587,33 +558,95 @@ def enemy_turn(myships_clone, a, b, c):
                         if not myships_clone[0][0]:
                             destroy_my_ship(a)
                             print('YOUR GLORIOUS FLAG SHIP IS NO MORE! CUT RICE STIPENDS QUUIIICKKK!!!!')
-                            myships_clone.remove(myships_clone[0])
+                            myships.remove(myships_clone[0])
                             next_targets.clear()
-                            if not myships_clone:
+                            if not myships:
+                                print_board()
                                 print('---YOU LOST THE KOREAN FLEET! YOU ARE NOW SHITTY RICE MONGER---')
                     elif target in myships_clone[1][0]:
                         myships_clone[1][0].remove(target)
                         if not myships_clone[1][0]:
                             destroy_my_ship(b)
                             print('YOUR SHIPS IS TEH DEAD! MUCH SAD, REALLY WOW!')
-                            myships_clone.remove(myships_clone[1])
+                            myships.remove(myships_clone[1])
                             next_targets.clear()
-                            if not myships_clone:
+                            if not myships:
+                                print_board()
                                 print('---YOU LOOSE: PLAYER ACCOUNT DEDUCTED 4.20 DODGE COINS---')
                     elif target in myships_clone[2][0]:
                         myships_clone[2][0].remove(target)
                         if not myships_clone[2][0]:
                             destroy_my_ship(c)
                             print('WE\'RE VENTING PLASMA FROM THE PORT NACELLE! ALL HANDS TO ESCAPE PODS!!! ')
-                            myships_clone.remove(myships_clone[2])
+                            myships.remove(myships_clone[2])
                             next_targets.clear()
-                            if not myships_clone:
+                            if not myships:
+                                print_board()
                                 print('---ACTIVATE SELF DESTRUCT SEQUENCE JAYNEWAY-ALPHA-3359---')
                 else:  # Else
                     enemy_miss(enemy_target, myboard)  # Run miss function on target list
                     print('Enemy Miss!')
             else:
                 getting_target = True
+    else:
+        getting_unused_target = True
+        while getting_unused_target:
+            enemy_target = []
+            column = random.randrange(1, 9)
+            row = random.randrange(0, 8)
+            enemy_target.append(column)
+            enemy_target.append(row)
+            if check_if_tried_enemy(enemy_target) is False:
+                getting_unused_target = False
+                column = enemy_target[0]
+                row = enemy_target[1]  # Row = Second element of target lst - 1( -1 makes it work correctly
+                target = [column, row]  # Consider slimming this function down
+                last_target = [column, row]
+                board_index = target[0]  # As a lot of this is not needed
+                board_list = target[1]  # Written like this to help understand what represented what
+                target[0] = column_letter[target[0]]
+                target[1] += 1
+                print(target)
+                target[0] = column_number[target[0]]
+                if myboard[board_list][board_index] == "@":  # In relation to the boar
+                    myboard[board_list][board_index] = "$"
+                    print('Enemy Hit!')
+                    get_next_targets(last_target)
+                    if target in myships_clone[0][0]:
+                        myships_clone[0][0].remove(target)
+                        if not myships_clone[0][0]:
+                            destroy_my_ship(a)
+                            print('YOUR GLORIOUS FLAG SHIP IS NO MORE! CUT RICE STIPENDS QUUIIICKKK!!!!')
+                            myships.remove(myships_clone[0])
+                            next_targets.clear()
+                            if not myships:
+                                print_board()
+                                print('---YOU LOST THE KOREAN FLEET! YOU ARE NOW SHITTY RICE MONGER---')
+                    elif target in myships_clone[1][0]:
+                        myships_clone[1][0].remove(target)
+                        if not myships_clone[1][0]:
+                            destroy_my_ship(b)
+                            print('YOUR SHIPS IS TEH DEAD! MUCH SAD, REALLY WOW!')
+                            myships.remove(myships_clone[1])
+                            next_targets.clear()
+                            if not myships:
+                                print_board()
+                                print('---YOU LOOSE: PLAYER ACCOUNT DEDUCTED 4.20 DODGE COINS---')
+                    elif target in myships_clone[2][0]:
+                        myships_clone[2][0].remove(target)
+                        if not myships_clone[2][0]:
+                            destroy_my_ship(c)
+                            print('WE\'RE VENTING PLASMA FROM THE PORT NACELLE! ALL HANDS TO ESCAPE PODS!!! ')
+                            myships.remove(myships_clone[2])
+                            next_targets.clear()
+                            if not myships:
+                                print_board()
+                                print('---ACTIVATE SELF DESTRUCT SEQUENCE JAYNEWAY-ALPHA-3359---')
+                else:  # Else
+                    enemy_miss(enemy_target, myboard)  # Run miss function on target list
+                    print('Enemy Miss!')
+            else:
+                getting_unused_target = True
 
 
 # Function that gathers input on rather user wishes to continue playing
@@ -651,16 +684,16 @@ def main():
         ships.append(ship_1)  # Adds all three ships
         ships.append(ship_2)  # To a single list(ships)
         ships.append(ship_3)  # To be used to keep track of current ships in play
-        myship_1_damage = list(myship_1)  # to be referenced by the destroy_ship function
-        myship_2_damage = list(myship_2)
-        myship_3_damage = list(myship_3)
+        myship_1_damage = copy.deepcopy(myship_1)  # to be referenced by the destroy_ship function
+        myship_2_damage = copy.deepcopy(myship_2)
+        myship_3_damage = copy.deepcopy(myship_3)
         myships.append(myship_1)
         myships.append(myship_2)
         myships.append(myship_3)
         playing = True
         timer = 5
         print('Game Will be begin in....')
-        myships_clone = copy.deepcopy(myships)
+        myships_clone = myships.copy()
         while timer > 0:
             print(timer)
             timer -= 1
@@ -680,7 +713,7 @@ def main():
             enemy_turn(myships_clone, myship_1_damage, myship_2_damage, myship_3_damage)
             if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
                 break
-            if len(myships_clone) == 0:
+            if len(myships_clone[0][0]) == 0 and len(myships_clone[1][0]) == 0 and len(myships_clone[2][0]) == 0:
                 break
         if play_again() == "":  # Runs play again function and if user hits enter
             print('The Game will restart in 5 seconds')

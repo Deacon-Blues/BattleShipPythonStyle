@@ -26,27 +26,42 @@ myboard = []
 
 x = []  # List of row numbers, inserted into the front of each row later on
 
-columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # List of all Column letter values
 
-rows = [1, 2, 3, 4, 5, 6, 7, 8]
+rows = [1, 2, 3, 4, 5, 6, 7, 8]  # List of Row values, also used to verify input
 
-y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # Needs space to properly print in 8x8 grid
+y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # List used to print column values in board. Space is for formatting
 
-# First item is column second item is row
+# |==================================================================|
+# |=================ATTENTION====VERY IMPORTANT======================|
+# |=====FIRST ITEM IN LIST IS COLUMN SECOND ITEM IN LIST IS ROW======|
+# |=========TRUE FOR EVERY LIST CONTAINING SHIP COORDINATES==========|
+# |==================================================================|
+# |==================================================================|
+
 # Lists that contain ship coordinates
-ship_1 = []
-ship_2 = []
-ship_3 = []
 
-myship_1 = []
-myship_2 = []
-myship_3 = []
-# Lists that are used to hold ship coordinates and later, change the board
+# Lists used to store enemy ship coordinates
+bird_of_prey = []
+war_bird = []
+borg_cube = []
+
+# Lists used to store player ship coordinates
+defiant = []
+voyager = []
+enterprise = []
+
+# Lists that mirror enemy ship coordinates lists. Used to 'destroy' enemy ships
+# The coordinates in the lists are fed to the destroy_ship function
+# The destroy_ship function then changes the corresponding coordinates to '*'
 ship_1_damage = []
 ship_2_damage = []
 ship_3_damage = []
-# Holds all current possible hit targets
-ships = []
-myships = []
 
-next_targets = []
+# Lists that hold all ship coordinates
+
+# Enemy ship Coordinates
+ships = []
+
+# Player Ship coordinates
+myships = []

@@ -185,3 +185,13 @@ Forty-Third Commit - Changed myship_1-3 list variable names
                             myship_3 => enterprise
                    - Minor bug fix
                             - Fixed bug that prevented ships from being deployed on the eighth row
+
+Forty-Fourth Commit - Added different sized ships feature
+                            myship_1 => defiant => 2 spaces => Deploys in line
+                            myship_2 => voyager => 3 spaces => Deploys in line
+                            myship_3 => enterprise => 5 Spaces => Deploys in line
+                            ship_1 => bird_of_prey => 2 spaces => Deploys in line
+                            ship_2 => war_bird => 3 spaces => Deploys in line
+                            ship_3 => borg_cube => 5 Spaces => Deploys in Cube
+                    - Updated theme
+                            - Ships and messages are now StarTrek Themed 

@@ -194,4 +194,11 @@ Forty-Fourth Commit - Added different sized ships feature
                             ship_2 => war_bird => 3 spaces => Deploys in line
                             ship_3 => borg_cube => 5 Spaces => Deploys in Cube
                     - Updated theme
-                            - Ships and messages are now StarTrek Themed 
+                            - Ships and messages are now StarTrek Themed
+
+Forty-Fifth Commit - Added different difficulty feature
+                            Ensign(Easy) => Fires at random, unused, target
+                            Captain(Medium) => Fires at random, unused target, then smart targets following a hit
+                            Admiral(Hard) => Not yet implemented => Will grid fire  and smart fire.
+                   - Bug Fix
+                            - The ship "Enterprise" Can no longer be deployed off the board

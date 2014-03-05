@@ -42,6 +42,8 @@ y = [" ", 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']  # List used to print column v
 # |==================================================================|
 # |==================================================================|
 
+next_targets = []
+
 # Lists that contain ship coordinates
 
 # Lists used to store enemy ship coordinates
@@ -395,7 +397,13 @@ def hide_myships(ship):
             else:
                 getting_ship_origin = False
         elif ship is enterprise:
-            if myboard[main_staging_ground[0][1] - 1][main_staging_ground[0][0]] == '@':
+            if main_staging_ground[0][0] < 1 or main_staging_ground[1][0] < 1 or main_staging_ground[2][1] < 1 \
+                    or main_staging_ground[3][0] < 1 or main_staging_ground[4][0] < 1:
+                print("Your Ship would be deployed outside the known universe! Try again!")
+            elif main_staging_ground[0][0] > 8 or main_staging_ground[1][0] > 8 or main_staging_ground[2][1] > 8 \
+                    or main_staging_ground[3][0] > 8 or main_staging_ground[4][0] > 8:
+                print("Your Ship would be deployed outside the known universe! Try again!")
+            elif myboard[main_staging_ground[0][1] - 1][main_staging_ground[0][0]] == '@':
                 print('If you deploy there your ships will collide!')
                 getting_ship_origin = True
             elif myboard[main_staging_ground[1][1] - 1][main_staging_ground[1][0]] == '@':
@@ -640,8 +648,6 @@ def player_turn(target):
     else:
         print('Error')
 
-next_targets = []
-
 
 def get_next_targets(some_target):
     if some_target[0] == 1:
@@ -707,7 +713,64 @@ def get_next_targets(some_target):
         next_targets.append(right)
 
 
-def enemy_turn(myships_clone, a, b, c):
+def easy_enemy_turn(myships_clone, a, b, c):
+    getting_target = True
+    while getting_target:
+        enemy_target = []
+        column = random.randrange(1, 9)
+        row = random.randrange(0, 8)
+        enemy_target.append(column)
+        enemy_target.append(row)
+        if check_if_tried_enemy(enemy_target) is False:
+            getting_target = False
+            column = enemy_target[0]
+            row = enemy_target[1]  # Row = Second element of target lst - 1( -1 makes it work correctly
+            target = [column, row]  # Consider slimming this function down
+            board_index = target[0]  # As a lot of this is not needed
+            board_list = target[1]  # Written like this to help understand what represented what
+            target[0] = column_letter[target[0]]
+            target[1] += 1
+            print(target)
+            target[0] = column_number[target[0]]
+            if myboard[board_list][board_index] == "@":  # In relation to the boar
+                myboard[board_list][board_index] = "$"
+                print('Enemy Hit!')
+                if target in myships_clone[0][0]:
+                    myships_clone[0][0].remove(target)
+                    if not myships_clone[0][0]:
+                        destroy_my_ship(a)
+                        print('Enemy has destroyed the Defiant!')
+                        myships.remove(myships_clone[0])
+                        if not myships:
+                            print_board()
+                            print('---The Dominion has taken DeepSpace 9  and invaded the Alpha Quadrant---')
+                elif target in myships_clone[1][0]:
+                    myships_clone[1][0].remove(target)
+                    if not myships_clone[1][0]:
+                        destroy_my_ship(b)
+                        print('Enemy has destroyed Voyager!')
+                        myships.remove(myships_clone[1])
+                        if not myships:
+                            print_board()
+                            print('---The Borg have taken control of the bridge!---')
+                            print('---ACTIVATE SELF DESTRUCT SEQUENCE JAYNEWAY-ALPHA-3359---')
+                elif target in myships_clone[2][0]:
+                    myships_clone[2][0].remove(target)
+                    if not myships_clone[2][0]:
+                        destroy_my_ship(c)
+                        print('Enemy has destroyed The Enterprise!')
+                        myships.remove(myships_clone[2])
+                        if not myships:
+                            print_board()
+                            print('---The Borg have assimilated Capt. Jean Luc Picard!---')
+            else:  # Else
+                enemy_miss(enemy_target, myboard)  # Run miss function on target list
+                print('Enemy Miss!')
+        else:
+            getting_target = True
+
+
+def medium_enemy_turn(myships_clone, a, b, c):
     if len(next_targets) >= 1:
         getting_target = True
         while getting_target:
@@ -833,73 +896,162 @@ def play_again():
     return go_again
 
 
+def play(difficulty):
+    if difficulty == "easy":
+        running = True
+        while running:
+            filling = True
+            clear_lists()  # Clear all non referenced global lists
+            fill_boards()
+            hide_ships(bird_of_prey, war_bird, borg_cube)
+            #ships_hidden = 0
+            # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
+            # Consider finding a way to make it only re-randomize overlapped ship coordinates
+            if any(True for i in war_bird if i in bird_of_prey):
+                filling = False
+            if any(True for z in borg_cube if z in war_bird):
+                filling = False
+            if any(True for k in bird_of_prey if k in borg_cube):
+                filling = False
+            while filling is False:  # If a ship coordinate is pegged asa repeated
+                play(difficulty)  # Program restarts and tries again
+            print_board()
+            hide_myships(defiant)
+            hide_myships(voyager)
+            hide_myships(enterprise)
+            ship_1_damage.extend(bird_of_prey)  # Creates copies
+            ship_2_damage.extend(war_bird)  # of all three ships
+            ship_3_damage.extend(borg_cube)  # to be referenced by the destroy_ship function
+            ships.append(bird_of_prey)  # Adds all three ships
+            ships.append(war_bird)  # To a single list(ships)
+            ships.append(borg_cube)  # To be used to keep track of current ships in play
+            myship_1_damage = copy.deepcopy(defiant)  # to be referenced by the destroy_ship function
+            myship_2_damage = copy.deepcopy(voyager)
+            myship_3_damage = copy.deepcopy(enterprise)
+            myships.append(defiant)
+            myships.append(voyager)
+            myships.append(enterprise)
+            playing = True
+            timer = 5
+            print('Game Will be begin in....')
+            myships_clone = myships.copy()
+            while timer > 0:
+                print(timer)
+                timer -= 1
+                time.sleep(1)
+            while playing:
+                print_board()
+                player_target = get_target()
+                print('CHARGING STARBOARD PHASER BANKS')
+                #time.sleep(2)
+                player_turn(player_target)
+                print_board()
+                time.sleep(2)
+                print('Enemy is charging his lazors!')
+                time.sleep(2)
+                print('ENEMY IS FIRING HIS LAZORS!!!!!!')
+                #time.sleep(1)
+                easy_enemy_turn(myships_clone, myship_1_damage, myship_2_damage, myship_3_damage)
+                if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
+                    break
+                if len(myships_clone[0][0]) == 0 and len(myships_clone[1][0]) == 0 and len(myships_clone[2][0]) == 0:
+                    break
+            if play_again() == "":  # Runs play again function and if user hits enter
+                print('The Game will restart in 5 seconds')
+                timer = 5  # Timer
+                while timer > 0:  # While timer  > 0(Not done)
+                    time.sleep(1)  # Wait 1 sec
+                    print(timer)  # print timer var
+                    timer -= 1  # timer var - 1 and equal to the result
+                running = True
+            else:
+                break
+    elif difficulty == "medium":
+        running = True
+        while running:
+            filling = True
+            clear_lists()  # Clear all non referenced global lists
+            fill_boards()
+            hide_ships(bird_of_prey, war_bird, borg_cube)
+            #ships_hidden = 0
+            # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
+            # Consider finding a way to make it only re-randomize overlapped ship coordinates
+            if any(True for i in war_bird if i in bird_of_prey):
+                filling = False
+            if any(True for z in borg_cube if z in war_bird):
+                filling = False
+            if any(True for k in bird_of_prey if k in borg_cube):
+                filling = False
+            while filling is False:  # If a ship coordinate is pegged asa repeated
+                play(difficulty)  # Program restarts and tries again
+            print_board()
+            hide_myships(defiant)
+            hide_myships(voyager)
+            hide_myships(enterprise)
+            ship_1_damage.extend(bird_of_prey)  # Creates copies
+            ship_2_damage.extend(war_bird)  # of all three ships
+            ship_3_damage.extend(borg_cube)  # to be referenced by the destroy_ship function
+            ships.append(bird_of_prey)  # Adds all three ships
+            ships.append(war_bird)  # To a single list(ships)
+            ships.append(borg_cube)  # To be used to keep track of current ships in play
+            myship_1_damage = copy.deepcopy(defiant)  # to be referenced by the destroy_ship function
+            myship_2_damage = copy.deepcopy(voyager)
+            myship_3_damage = copy.deepcopy(enterprise)
+            myships.append(defiant)
+            myships.append(voyager)
+            myships.append(enterprise)
+            playing = True
+            timer = 5
+            print('Game Will be begin in....')
+            myships_clone = myships.copy()
+            while timer > 0:
+                print(timer)
+                timer -= 1
+                time.sleep(1)
+            while playing:
+                print_board()
+                player_target = get_target()
+                print('CHARGING STARBOARD PHASER BANKS')
+                #time.sleep(2)
+                player_turn(player_target)
+                print_board()
+                time.sleep(2)
+                print('Enemy is charging his lazors!')
+                time.sleep(2)
+                print('ENEMY IS FIRING HIS LAZORS!!!!!!')
+                #time.sleep(1)
+                easy_enemy_turn(myships_clone, myship_1_damage, myship_2_damage, myship_3_damage)
+                if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
+                    break
+                if len(myships_clone[0][0]) == 0 and len(myships_clone[1][0]) == 0 and len(myships_clone[2][0]) == 0:
+                    break
+            if play_again() == "":  # Runs play again function and if user hits enter
+                print('The Game will restart in 5 seconds')
+                timer = 5  # Timer
+                while timer > 0:  # While timer  > 0(Not done)
+                    time.sleep(1)  # Wait 1 sec
+                    print(timer)  # print timer var
+                    timer -= 1  # timer var - 1 and equal to the result
+                running = True
+            else:
+                break
+
+
 def main():
-    running = True
-    while running:
-        filling = True
-        clear_lists()  # Clear all non referenced global lists
-        fill_boards()
-        hide_ships(bird_of_prey, war_bird, borg_cube)
-        #ships_hidden = 0
-        # The below if statements makes sure no ship coordinates overlap, and if so, will restart loop.
-        # Consider finding a way to make it only re-randomize overlapped ship coordinates
-        if any(True for i in war_bird if i in bird_of_prey):
-            filling = False
-        if any(True for z in borg_cube if z in war_bird):
-            filling = False
-        if any(True for k in bird_of_prey if k in borg_cube):
-            filling = False
-        while filling is False:  # If a ship coordinate is pegged asa repeated
-            main()  # Program restarts and tries again
-        print_board()
-        hide_myships(defiant)
-        hide_myships(voyager)
-        hide_myships(enterprise)
-        ship_1_damage.extend(bird_of_prey)  # Creates copies
-        ship_2_damage.extend(war_bird)  # of all three ships
-        ship_3_damage.extend(borg_cube)  # to be referenced by the destroy_ship function
-        ships.append(bird_of_prey)  # Adds all three ships
-        ships.append(war_bird)  # To a single list(ships)
-        ships.append(borg_cube)  # To be used to keep track of current ships in play
-        myship_1_damage = copy.deepcopy(defiant)  # to be referenced by the destroy_ship function
-        myship_2_damage = copy.deepcopy(voyager)
-        myship_3_damage = copy.deepcopy(enterprise)
-        myships.append(defiant)
-        myships.append(voyager)
-        myships.append(enterprise)
-        playing = True
-        timer = 5
-        print('Game Will be begin in....')
-        myships_clone = myships.copy()
-        while timer > 0:
-            print(timer)
-            timer -= 1
-            time.sleep(1)
-        while playing:
-            print_board()
-            player_target = get_target()
-            print('CHARGING STARBOARD PHASER BANKS')
-            #time.sleep(2)
-            player_turn(player_target)
-            print_board()
-            time.sleep(2)
-            print('Enemy is charging his lazors!')
-            time.sleep(2)
-            print('ENEMY IS FIRING HIS LAZORS!!!!!!')
-            #time.sleep(1)
-            enemy_turn(myships_clone, myship_1_damage, myship_2_damage, myship_3_damage)
-            if len(ships[0]) == 0 and len(ships[1]) == 0 and len(ships[2]) == 0:
-                break
-            if len(myships_clone[0][0]) == 0 and len(myships_clone[1][0]) == 0 and len(myships_clone[2][0]) == 0:
-                break
-        if play_again() == "":  # Runs play again function and if user hits enter
-            print('The Game will restart in 5 seconds')
-            timer = 5  # Timer
-            while timer > 0:  # While timer  > 0(Not done)
-                time.sleep(1)  # Wait 1 sec
-                print(timer)  # print timer var
-                timer -= 1  # timer var - 1 and equal to the result
-            running = True
-        else:
-            break
+    print('-----Difficulty-----')
+    print('1.) Ensign(Easy)')
+    print('2.) Captain(Medium)')
+    print('3.) Admiral(Hard)')
+    difficulty = input('What setting could you like to play on?: ')
+    if difficulty is "1":
+        print("Loading Holodeck program")
+        print("Level: Ensign")
+        time.sleep(5)
+        play("easy")
+    elif difficulty is "2":
+        print("Loading Holodeck program")
+        print("Level: Captain")
+        time.sleep(5)
+        play("medium")
+
 main()

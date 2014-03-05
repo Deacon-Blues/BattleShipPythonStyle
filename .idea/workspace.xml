@@ -4,8 +4,6 @@
     <list default="true" id="46ad22d2-c141-4158-ae8d-bf7c67ce92ed" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Commit Notes" afterPath="$PROJECT_DIR$/Commit Notes" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/battle-ship.py" afterPath="$PROJECT_DIR$/battle-ship.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/functions.py" afterPath="$PROJECT_DIR$/functions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lists_dictionaries.py" afterPath="$PROJECT_DIR$/lists_dictionaries.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BattleShip.iws" />
@@ -41,18 +39,16 @@
       <file leaf-file-name="functions.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14365">
-              <folding>
-                <element signature="e#25#38#0" expanded="true" />
-              </folding>
+            <state line="7" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="14365">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="battle-ship.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="battle-ship.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/battle-ship.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="108" selection-start="15264" selection-end="15264" vertical-scroll-proportion="0.0" vertical-offset="15047" max-vertical-offset="15470">
+            <state line="1052" column="31" selection-start="51489" selection-end="51489" vertical-scroll-proportion="0.59810877" vertical-offset="17631" max-vertical-offset="18054">
               <folding>
                 <element signature="e#25#38#0" expanded="true" />
               </folding>
@@ -69,10 +65,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commit Notes" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Commit Notes" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Commit Notes">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="196" column="73" selection-start="10123" selection-end="10123" vertical-scroll-proportion="0.8392435" vertical-offset="2977" max-vertical-offset="3434">
+            <state line="203" column="91" selection-start="10590" selection-end="10590" vertical-scroll-proportion="0.0" vertical-offset="3079" max-vertical-offset="3553">
               <folding />
             </state>
           </provider>
@@ -104,10 +100,10 @@
         <option value="$PROJECT_DIR$/README" />
         <option value="$PROJECT_DIR$/test-file.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/battle-ship.py" />
-        <option value="$PROJECT_DIR$/Commit Notes" />
         <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/lists_dictionaries.py" />
+        <option value="$PROJECT_DIR$/battle-ship.py" />
+        <option value="$PROJECT_DIR$/Commit Notes" />
       </list>
     </option>
   </component>
@@ -143,6 +139,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -153,17 +150,16 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/test.py" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -589,14 +585,17 @@
       <created>1393458340765</created>
       <updated>1393458340765</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Forty-Fourth Commit">
+      <created>1393484782616</created>
+      <updated>1393484782616</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -611,6 +610,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -624,7 +624,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="Seventeenth Commit" />
     <MESSAGE value="Eighteenth Commit" />
     <MESSAGE value="Nineteenth Commit" />
     <MESSAGE value="Twentieth Commit" />
@@ -649,23 +648,22 @@
     <MESSAGE value="Forty-First Commit" />
     <MESSAGE value="Forty-Second Commit" />
     <MESSAGE value="Forty-Third Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Forty-Third Commit" />
+    <MESSAGE value="Forty-Fourth Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Forty-Fourth Commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="135" />
+      <option name="time" value="136" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="28" selection-start="476" selection-end="476" vertical-scroll-proportion="0.0" vertical-offset="6" max-vertical-offset="459">
-          <folding>
-            <element signature="e#25#38#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -712,31 +710,23 @@
     </entry>
     <entry file="file://C:/Python33/Lib/copy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="0" selection-start="3685" selection-end="3685" vertical-scroll-proportion="0.0" vertical-offset="2086" max-vertical-offset="5576">
-          <folding />
-        </state>
+        <state line="134" column="0" selection-start="3685" selection-end="3685" vertical-scroll-proportion="0.0" vertical-offset="2086" max-vertical-offset="5576" />
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd_breakpoints.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="0" selection-start="2942" selection-end="2942" vertical-scroll-proportion="0.0" vertical-offset="1457" max-vertical-offset="3349">
-          <folding />
-        </state>
+        <state line="97" column="0" selection-start="2942" selection-end="2942" vertical-scroll-proportion="0.0" vertical-offset="1457" max-vertical-offset="3349" />
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.0" vertical-offset="258" max-vertical-offset="714">
-          <folding />
-        </state>
+        <state line="36" column="0" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.0" vertical-offset="258" max-vertical-offset="714" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/functions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="0" selection-start="65" selection-end="65" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="14365">
-          <folding>
-            <element signature="e#25#38#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -749,26 +739,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="96" selection-start="7733" selection-end="7733" vertical-scroll-proportion="-1.3947991" vertical-offset="3973" max-vertical-offset="13345">
-          <folding>
-            <element signature="e#25#38#0" expanded="true" />
-          </folding>
+        <state line="199" column="96" selection-start="7733" selection-end="7733" vertical-scroll-proportion="-1.3947991" vertical-offset="3973" max-vertical-offset="13345" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Commit Notes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="203" column="91" selection-start="10590" selection-end="10590" vertical-scroll-proportion="0.0" vertical-offset="3079" max-vertical-offset="3553">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/battle-ship.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="108" selection-start="15264" selection-end="15264" vertical-scroll-proportion="0.0" vertical-offset="15047" max-vertical-offset="15470">
+        <state line="1052" column="31" selection-start="51489" selection-end="51489" vertical-scroll-proportion="0.59810877" vertical-offset="17631" max-vertical-offset="18054">
           <folding>
             <element signature="e#25#38#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Commit Notes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="73" selection-start="10123" selection-end="10123" vertical-scroll-proportion="0.8392435" vertical-offset="2977" max-vertical-offset="3434">
-          <folding />
         </state>
       </provider>
     </entry>
